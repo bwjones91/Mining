@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class oreDestroy : MonoBehaviour {
+public class Ore : MonoBehaviour {
 
     public enum OreType
     {
@@ -16,23 +16,31 @@ public class oreDestroy : MonoBehaviour {
 
     public OreType oreType;
 
+    OreList oreList;
+
 	void Start () {
-        
-	}
+        oreList = GetComponent<OreList>();
+        print("test");
+    }
 	
 	void Update () {
         
 	}
 
-    private void OnCollisionEnter(Collision collision)
+    private void OnTriggerEnter(Collider collider)
     {
-        GameObject theController = GameObject.Find("GameController");
-        GameController gameController = theController.GetComponent<GameController>();
-        if (collision.gameObject.tag == "Ground")
+        
+        if (collider.gameObject.tag == "Ground")
         {
-            Destroy(this.gameObject);
+            //Destroy(this.gameObject);
         }
-        if (collision.gameObject.tag == "Player")
+        if (collider.gameObject.tag == "Player")
+        {
+            oreList.ores.Add(gameObject.GetComponent<Ore>());
+            print(oreList.ores.Count);
+        }
+    }
+        /*if (collider.gameObject.tag == "Player")
         {
             switch (oreType)
             {
@@ -58,7 +66,6 @@ public class oreDestroy : MonoBehaviour {
             Destroy(this.gameObject);
             gameController.myScore++;
             print(gameController.myScore);
-        }
-    }
+        }*/
 
 }

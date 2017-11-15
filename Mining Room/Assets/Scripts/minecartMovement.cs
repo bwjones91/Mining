@@ -4,16 +4,17 @@ using UnityEngine;
 
 public class minecartMovement : MonoBehaviour {
 
-    public float moveSpeed;
-
     public float thrust;
 
+    public float  minecartSpeed;
+
     void Start () {
-        
+
 	}
 
-
 	void Update () {
+        minecartSpeed = GetComponent<Rigidbody>().velocity.magnitude;
+
         if (Input.GetKeyDown(KeyCode.LeftArrow))
         {
             GetComponent<Rigidbody>().AddForce(new Vector3(-1f, 0f, 0f) * thrust);
@@ -26,37 +27,37 @@ public class minecartMovement : MonoBehaviour {
         
     }
 
-    /*private void OnCollisionEnter(Collision collision)
+    private void OnTriggerEnter(Collider collider)
     {
         GameObject theController = GameObject.Find("GameController");
         GameController gameController = theController.GetComponent<GameController>();
-        if (collision.gameObject.tag == "Ore")
+        if (collider.gameObject.tag == "Ore")
         {
-            switch (collision.gameObject.GetComponent<oreDe)
+            Ore.OreType type = collider.gameObject.GetComponent<Ore>().oreType;
+            switch (type)
             {
-                case oreDestroy.OreType.Coal:
+                case Ore.OreType.Coal:
                     gameController.coalCounter++;
                     break;
-                case OreType.Copper:
+                case Ore.OreType.Copper:
                     gameController.copperCounter++;
                     break;
-                case OreType.Gold:
+                case Ore.OreType.Gold:
                     gameController.goldCounter++;
                     break;
-                case OreType.Iron:
+                case Ore.OreType.Iron:
                     gameController.ironCounter++;
                     break;
-                case OreType.Silver:
+                case Ore.OreType.Silver:
                     gameController.silverCounter++;
                     break;
-                case OreType.Tin:
+                case Ore.OreType.Tin:
                     gameController.tinCounter++;
                     break;
             }
-            Destroy(this.gameObject);
             gameController.myScore++;
-            print(gameController.myScore);
+            //print(gameController.myScore);
         }
-    }*/
+    }
 
 }
