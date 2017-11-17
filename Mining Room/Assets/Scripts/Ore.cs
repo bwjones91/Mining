@@ -19,8 +19,7 @@ public class Ore : MonoBehaviour {
     OreList oreList;
 
 	void Start () {
-        oreList = GetComponent<OreList>();
-        print("test");
+        oreList = GameObject.FindGameObjectWithTag("Player").GetComponent<OreList>();
     }
 	
 	void Update () {
@@ -32,12 +31,17 @@ public class Ore : MonoBehaviour {
         
         if (collider.gameObject.tag == "Ground")
         {
-            //Destroy(this.gameObject);
+            Destroy(this.gameObject);
         }
         if (collider.gameObject.tag == "Player")
         {
             oreList.ores.Add(gameObject.GetComponent<Ore>());
-            print(oreList.ores.Count);
+            foreach (Ore ore in oreList.ores)
+            {
+                print(ore.oreType);
+            }
+            //print(oreList.ores.Count);
+
         }
     }
         /*if (collider.gameObject.tag == "Player")

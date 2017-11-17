@@ -191,8 +191,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ore: {fileID: 54592038448750514, guid: 6f0433d3bc287394097a25ebb3ff8024, type: 2}
   theKey: 54
-  coolDown: 3
-  hitsNeeded: 3
+  coolDown: 1
+  hitsNeeded: 1
 --- !u!1 &288361322
 GameObject:
   m_ObjectHideFlags: 0
@@ -276,8 +276,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ore: {fileID: 54592038448750514, guid: 73d2bab7b3f353a4f9948fd406c9d645, type: 2}
   theKey: 53
-  coolDown: 8
-  hitsNeeded: 8
+  coolDown: 1
+  hitsNeeded: 1
 --- !u!1 &371295598
 GameObject:
   m_ObjectHideFlags: 0
@@ -370,7 +370,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 371295598}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.5, z: 0.51}
+  m_LocalPosition: {x: -11.6, y: 0.5, z: 0.51}
   m_LocalScale: {x: 5, y: 1, z: 2}
   m_Children: []
   m_Father: {fileID: 0}
@@ -403,6 +403,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ores: []
+  coalOre: {fileID: 54592038448750514, guid: a30593ad487cff94d94b5d512521183a, type: 2}
+  copperOre: {fileID: 54592038448750514, guid: c79a3ca0630b0d643849f424379d0a3d, type: 2}
+  goldOre: {fileID: 54592038448750514, guid: 63d520649b041c2458db4ea3fac4a2da, type: 2}
+  ironOre: {fileID: 54592038448750514, guid: 58b4a7c31970f9044bc3b554f60e10ab, type: 2}
+  silverOre: {fileID: 54592038448750514, guid: 73d2bab7b3f353a4f9948fd406c9d645, type: 2}
+  tinOre: {fileID: 54592038448750514, guid: 6f0433d3bc287394097a25ebb3ff8024, type: 2}
 --- !u!1 &455338970
 GameObject:
   m_ObjectHideFlags: 0
@@ -570,8 +576,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ore: {fileID: 54592038448750514, guid: 63d520649b041c2458db4ea3fac4a2da, type: 2}
   theKey: 51
-  coolDown: 12
-  hitsNeeded: 12
+  coolDown: 1
+  hitsNeeded: 1
 --- !u!1 &925895273
 GameObject:
   m_ObjectHideFlags: 0
@@ -955,8 +961,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ore: {fileID: 54592038448750514, guid: a30593ad487cff94d94b5d512521183a, type: 2}
   theKey: 49
-  coolDown: 6
-  hitsNeeded: 6
+  coolDown: 1
+  hitsNeeded: 1
 --- !u!1 &2014015473
 GameObject:
   m_ObjectHideFlags: 0
@@ -1040,8 +1046,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ore: {fileID: 54592038448750514, guid: 58b4a7c31970f9044bc3b554f60e10ab, type: 2}
   theKey: 52
-  coolDown: 6
-  hitsNeeded: 6
+  coolDown: 1
+  hitsNeeded: 1
 --- !u!1 &2067574091
 GameObject:
   m_ObjectHideFlags: 0
@@ -1190,5 +1196,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ore: {fileID: 54592038448750514, guid: c79a3ca0630b0d643849f424379d0a3d, type: 2}
   theKey: 50
-  coolDown: 3
-  hitsNeeded: 3
+  coolDown: 1
+  hitsNeeded: 1

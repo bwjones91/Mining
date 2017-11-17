@@ -24,7 +24,7 @@ public class minecartMovement : MonoBehaviour {
         {
             GetComponent<Rigidbody>().AddForce(new Vector3(1f, 0f, 0f) * thrust);
         }
-        
+
     }
 
     private void OnTriggerEnter(Collider collider)
