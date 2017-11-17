@@ -16,46 +16,57 @@ public class OreList : MonoBehaviour {
     private Rigidbody instance;
 
 	void Start () {
-		
+
 	}
 
     void Update () {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            var oreThrown = ores[Random.Range(0, ores.Count)];
-            print(oreThrown.oreType);
-
-            switch (oreThrown.oreType)
-            {
-                case Ore.OreType.Coal:
-                    instance = Instantiate(coalOre, transform.position + new Vector3(0f, 10f, 0f), Quaternion.identity);
-                    instance.AddForce(new Vector3(0f, 250f, 0f));
-                    break;
-                case Ore.OreType.Copper:
-                    instance = Instantiate(copperOre, transform.position + new Vector3(0f, 10f, 0f), Quaternion.identity);
-                    instance.AddForce(new Vector3(0f, 250f, 0f));
-                    break;
-                case Ore.OreType.Gold:
-                    instance = Instantiate(goldOre, transform.position + new Vector3(0f, 10f, 0f), Quaternion.identity);
-                    instance.AddForce(new Vector3(0f, 250f, 0f));
-                    break;
-                case Ore.OreType.Iron:
-                    instance = Instantiate(ironOre, transform.position + new Vector3(0f, 10f, 0f), Quaternion.identity);
-                    instance.AddForce(new Vector3(0f, 250f, 0f));
-                    break;
-                case Ore.OreType.Silver:
-                    instance = Instantiate(silverOre, transform.position + new Vector3(0f, 10f, 0f), Quaternion.identity);
-                    instance.AddForce(new Vector3(0f, 250f, 0f));
-                    break;
-                case Ore.OreType.Tin:
-                    instance = Instantiate(tinOre, transform.position + new Vector3(0f, 10f, 0f), Quaternion.identity);
-                    instance.AddForce(new Vector3(0f, 250f, 0f));
-                    break;
-            }
-
-            ores.Remove(oreThrown);
-
-            //Instantiate(ores[Random.Range(0, ores.Count)]);
-        }
+            
     }
+
+    public void ThrowFunction()
+    {
+        var oreThrown = ores[Random.Range(0, ores.Count)];
+        print(oreThrown.oreType);
+
+        switch (oreThrown.oreType)
+        {
+            case Ore.OreType.Coal:
+                instance = Instantiate(coalOre, transform.position + new Vector3(0f, 2f, 0f), Quaternion.identity);
+                instance.AddForce(new Vector3(Random.Range(-250f, 250f), 250f, 0f));
+                break;
+            case Ore.OreType.Copper:
+                instance = Instantiate(copperOre, transform.position + new Vector3(0f, 2f, 0f), Quaternion.identity);
+                instance.AddForce(new Vector3(Random.Range(-250f, 250f), 250f, 0f));
+                break;
+            case Ore.OreType.Gold:
+                instance = Instantiate(goldOre, transform.position + new Vector3(0f, 2f, 0f), Quaternion.identity);
+                instance.AddForce(new Vector3(Random.Range(-250f, 250f), 250f, 0f));
+                break;
+            case Ore.OreType.Iron:
+                instance = Instantiate(ironOre, transform.position + new Vector3(0f, 2f, 0f), Quaternion.identity);
+                instance.AddForce(new Vector3(Random.Range(-250f, 250f), 250f, 0f));
+                break;
+            case Ore.OreType.Silver:
+                instance = Instantiate(silverOre, transform.position + new Vector3(0f, 2f, 0f), Quaternion.identity);
+                instance.AddForce(new Vector3(Random.Range(-250f, 250f), 250f, 0f));
+                break;
+            case Ore.OreType.Tin:
+                instance = Instantiate(tinOre, transform.position + new Vector3(0f, 2f, 0f), Quaternion.identity);
+                instance.AddForce(new Vector3(Random.Range(-250f, 250f), 250f, 0f));
+                break;
+        }
+
+        ores.Remove(oreThrown);
+    }
+
+    public void ThrowRepeating()
+    {
+        InvokeRepeating("ThrowFunction", 1f, 5f);
+    }
+
+    public void CancelThrowing()
+    {
+        CancelInvoke("ThrowFunction");
+    }
+
 }

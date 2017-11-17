@@ -36,40 +36,7 @@ public class Ore : MonoBehaviour {
         if (collider.gameObject.tag == "Player")
         {
             oreList.ores.Add(gameObject.GetComponent<Ore>());
-            foreach (Ore ore in oreList.ores)
-            {
-                print(ore.oreType);
-            }
-            //print(oreList.ores.Count);
-
         }
     }
-        /*if (collider.gameObject.tag == "Player")
-        {
-            switch (oreType)
-            {
-                case OreType.Coal:
-                    gameController.coalCounter++;
-                    break;
-                case OreType.Copper:
-                    gameController.copperCounter++;
-                    break;
-                case OreType.Gold:
-                    gameController.goldCounter++;
-                    break;
-                case OreType.Iron:
-                    gameController.ironCounter++;
-                    break;
-                case OreType.Silver:
-                    gameController.silverCounter++;
-                    break;
-                case OreType.Tin:
-                    gameController.tinCounter++;
-                    break;
-            }
-            Destroy(this.gameObject);
-            gameController.myScore++;
-            print(gameController.myScore);
-        }*/
 
 }

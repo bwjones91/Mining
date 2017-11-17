@@ -312,6 +312,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   thrust: 50
   minecartSpeed: 0
+  speedToThrowGoblin: 20
+  chanceToSpawn: 50
+  goblin: {fileID: 1906968257878364, guid: 372db7b019b0a884991b9b607b3fe33c, type: 2}
+  oreThrowing: {fileID: 371295605}
 --- !u!23 &371295600
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -591,7 +595,7 @@ GameObject:
   - component: {fileID: 925895274}
   m_Layer: 0
   m_Name: Right Wall
-  m_TagString: Untagged
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -673,7 +677,7 @@ GameObject:
   - component: {fileID: 1247431353}
   m_Layer: 0
   m_Name: Left Wall
-  m_TagString: Untagged
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

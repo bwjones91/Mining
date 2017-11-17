@@ -8,6 +8,20 @@ public class minecartMovement : MonoBehaviour {
 
     public float  minecartSpeed;
 
+    public float speedToThrowGoblin;
+
+    float goblinSpawnChance;
+
+    public float chanceToSpawn;
+
+    public GameObject goblin;
+
+    public OreList oreThrowing;
+
+    int goblinsOnScreen;
+
+    private GameObject newGoblin;
+
     void Start () {
 
 	}
@@ -25,6 +39,17 @@ public class minecartMovement : MonoBehaviour {
             GetComponent<Rigidbody>().AddForce(new Vector3(1f, 0f, 0f) * thrust);
         }
 
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if(collision.gameObject.tag == "Wall" && minecartSpeed > speedToThrowGoblin)
+        {
+            //transform.DetachChildren();
+            Destroy(newGoblin);
+            oreThrowing.CancelThrowing();
+            goblinsOnScreen--;
+        }
     }
 
     private void OnTriggerEnter(Collider collider)
@@ -55,8 +80,17 @@ public class minecartMovement : MonoBehaviour {
                     gameController.tinCounter++;
                     break;
             }
-            gameController.myScore++;
-            //print(gameController.myScore);
+
+            goblinSpawnChance = Random.Range(0f, 100f);
+            print(goblinSpawnChance);
+            if(goblinSpawnChance <= chanceToSpawn && goblinsOnScreen < 1)
+            {
+                newGoblin = Instantiate(goblin, transform.position, Quaternion.identity);
+                newGoblin.transform.parent = gameObject.transform;
+                goblinsOnScreen++;
+                oreThrowing.ThrowRepeating();
+            }
+
         }
     }
 
