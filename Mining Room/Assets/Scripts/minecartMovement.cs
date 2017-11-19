@@ -16,11 +16,13 @@ public class minecartMovement : MonoBehaviour {
 
     public GameObject goblin;
 
-    public OreList oreThrowing;
+    public OreList oreList;
 
     int goblinsOnScreen;
 
     private GameObject newGoblin;
+
+    public GoblinThrow goblinThrowing;
 
     void Start () {
 
@@ -43,12 +45,20 @@ public class minecartMovement : MonoBehaviour {
 
     private void OnCollisionEnter(Collision collision)
     {
-        if(collision.gameObject.tag == "Wall" && minecartSpeed > speedToThrowGoblin)
+        if((collision.gameObject.tag == "Left Wall") || (collision.gameObject.tag == "Right Wall") && minecartSpeed > speedToThrowGoblin)
         {
-            //transform.DetachChildren();
-            Destroy(newGoblin);
-            oreThrowing.CancelThrowing();
+            transform.DetachChildren();
+            oreList.CancelThrowing();
             goblinsOnScreen--;
+
+            if(collision.gameObject.tag == "Left Wall")
+            {
+                goblinThrowing.GoblinLeftThrow();
+            }
+            else
+            {
+                goblinThrowing.GoblinRightThrow();
+            }
         }
     }
 
@@ -87,10 +97,25 @@ public class minecartMovement : MonoBehaviour {
             {
                 newGoblin = Instantiate(goblin, transform.position, Quaternion.identity);
                 newGoblin.transform.parent = gameObject.transform;
+                goblinThrowing = GetComponentInChildren<GoblinThrow>();
                 goblinsOnScreen++;
-                oreThrowing.ThrowRepeating();
+                oreList.ThrowRepeating();
             }
 
+        }
+
+        if (collider.gameObject.tag == "Dropoff Zone")
+        {
+            oreList.OffLoadingRepeating();
+        }
+
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if(other.gameObject.tag == "Dropoff Zone")
+        {
+            oreList.CancelOffLoadingRepeating();
         }
     }
 
