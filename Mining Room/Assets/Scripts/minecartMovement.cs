@@ -92,7 +92,6 @@ public class minecartMovement : MonoBehaviour {
             }
 
             goblinSpawnChance = Random.Range(0f, 100f);
-            print(goblinSpawnChance);
             if(goblinSpawnChance <= chanceToSpawn && goblinsOnScreen < 1)
             {
                 newGoblin = Instantiate(goblin, transform.position, Quaternion.identity);
@@ -103,20 +102,7 @@ public class minecartMovement : MonoBehaviour {
             }
 
         }
-
-        if (collider.gameObject.tag == "Dropoff Zone")
-        {
-            oreList.OffLoadingRepeating();
-        }
-
     }
 
-    private void OnTriggerExit(Collider other)
-    {
-        if(other.gameObject.tag == "Dropoff Zone")
-        {
-            oreList.CancelOffLoadingRepeating();
-        }
-    }
 
 }
