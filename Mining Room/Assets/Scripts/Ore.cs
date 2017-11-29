@@ -6,12 +6,12 @@ public class Ore : MonoBehaviour {
 
     public enum OreType
     {
-        Coal,
-        Copper,
+        Mithril,
+        Adamantite,
         Gold,
-        Iron,
+        Pyronium,
         Silver,
-        Tin
+        Grapite
     }
 
     public OreType oreType;
@@ -36,6 +36,7 @@ public class Ore : MonoBehaviour {
         if (collider.gameObject.tag == "Player")
         {
             oreList.ores.Add(gameObject.GetComponent<Ore>());
+            Destroy(this.gameObject);
         }
     }
 

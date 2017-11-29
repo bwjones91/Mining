@@ -5,12 +5,12 @@ using UnityEngine;
 public class GameController : MonoBehaviour {
 
     public float myScore;
-    public float coalCounter;
-    public float copperCounter;
+    public float mithrilCounter;
+    public float adamantiteCounter;
     public float goldCounter;
-    public float ironCounter;
+    public float pyroniumCounter;
     public float silverCounter;
-    public float tinCounter;
+    public float grapiteCounter;
 
 	void Start () {
 		

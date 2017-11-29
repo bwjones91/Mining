@@ -3,26 +3,25 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class minecartMovement : MonoBehaviour {
-
-    public float thrust;
-
+    
     public float  minecartSpeed;
-
     public float speedToThrowGoblin;
-
-    float goblinSpawnChance;
-
     public float chanceToSpawn;
-
     public GameObject goblin;
-
     public OreList oreList;
-
-    int goblinsOnScreen;
-
-    private GameObject newGoblin;
-
     public GoblinThrow goblinThrowing;
+
+    private float thrust;
+    private bool right;
+    public float thrustDirection;
+    private float touchCount;
+    private float goblinSpawnChance;
+    private int goblinsOnScreen;
+    private GameObject newGoblin;
+    private bool leftButton;
+    private bool rightButton;
+
+
 
     void Start () {
 
@@ -31,23 +30,54 @@ public class minecartMovement : MonoBehaviour {
 	void Update () {
         minecartSpeed = GetComponent<Rigidbody>().velocity.magnitude;
 
+        if(Input.GetKeyDown(KeyCode.DownArrow))
+        {
+            right = !right;
+        }
+
+        if(right == true)
+        {
+            thrustDirection = 1f;
+        }
+        else
+        {
+            thrustDirection = -1f;
+        }        
+
         if (Input.GetKeyDown(KeyCode.LeftArrow))
         {
-            GetComponent<Rigidbody>().AddForce(new Vector3(-1f, 0f, 0f) * thrust);
+            leftButton = true;
         }
 
         if (Input.GetKeyDown(KeyCode.RightArrow))
         {
-            GetComponent<Rigidbody>().AddForce(new Vector3(1f, 0f, 0f) * thrust);
+            rightButton = true;
+        }
+    }
+
+    private void FixedUpdate()
+    {
+        if (leftButton == true && touchCount < 1)
+        {
+            thrust = Random.Range(10, 20);
+            GetComponent<Rigidbody>().AddForce(new Vector3(thrustDirection, 0f, 0f) * thrust);
+            touchCount++;
+            leftButton = false;
         }
 
+        if(rightButton == true && touchCount > 0)
+        {
+            thrust = Random.Range(10, 20);
+            GetComponent<Rigidbody>().AddForce(new Vector3(thrustDirection, 0f, 0f) * thrust);
+            touchCount--;
+            rightButton = false;
+        }
     }
 
     private void OnCollisionEnter(Collision collision)
     {
-        if((collision.gameObject.tag == "Left Wall") || (collision.gameObject.tag == "Right Wall") && minecartSpeed > speedToThrowGoblin)
+        if(((collision.gameObject.tag == "Left Wall") || (collision.gameObject.tag == "Right Wall")) && minecartSpeed > speedToThrowGoblin && goblinsOnScreen > 0)
         {
-            transform.DetachChildren();
             oreList.CancelThrowing();
             goblinsOnScreen--;
 
@@ -60,6 +90,11 @@ public class minecartMovement : MonoBehaviour {
                 goblinThrowing.GoblinRightThrow();
             }
         }
+
+        if(collision.gameObject.tag == "Left Wall" || collision.gameObject.tag == "Right Wall")
+        {
+            minecartSpeed = 0;
+        }
     }
 
     private void OnTriggerEnter(Collider collider)
@@ -71,23 +106,23 @@ public class minecartMovement : MonoBehaviour {
             Ore.OreType type = collider.gameObject.GetComponent<Ore>().oreType;
             switch (type)
             {
-                case Ore.OreType.Coal:
-                    gameController.coalCounter++;
+                case Ore.OreType.Mithril:
+                    gameController.mithrilCounter++;
                     break;
-                case Ore.OreType.Copper:
-                    gameController.copperCounter++;
+                case Ore.OreType.Adamantite:
+                    gameController.adamantiteCounter++;
                     break;
                 case Ore.OreType.Gold:
                     gameController.goldCounter++;
                     break;
-                case Ore.OreType.Iron:
-                    gameController.ironCounter++;
+                case Ore.OreType.Pyronium:
+                    gameController.pyroniumCounter++;
                     break;
                 case Ore.OreType.Silver:
                     gameController.silverCounter++;
                     break;
-                case Ore.OreType.Tin:
-                    gameController.tinCounter++;
+                case Ore.OreType.Grapite:
+                    gameController.grapiteCounter++;
                     break;
             }
 

@@ -5,23 +5,22 @@ using UnityEngine;
 public class oreSpawn : MonoBehaviour {
 
     public Rigidbody ore;
-	
-    public KeyCode theKey = KeyCode.None;
-
-    public float coolDown = 5f;
-    private float coolDownTimer;
-
+    public KeyCode theKey;
+    public float coolDown;
     public float hitsNeeded;
 
     private float hitsTaken;
+    private float coolDownTimer;
+    private bool veinLightUp;
+    
 
-	void Start () {
-		
+    void Start () {
+        
 	}
 	
 	
 	void Update () {
-        if (Input.GetKeyDown(theKey))
+        if (Input.GetKeyDown(theKey) && coolDownTimer == 0)
         {
             hitsTaken++;
         }
@@ -34,11 +33,14 @@ public class oreSpawn : MonoBehaviour {
         if (coolDownTimer < 0)
         {
             coolDownTimer = 0;
+            veinLightUp = true;
+
         }
 
-        if (Input.GetKeyDown(theKey) && hitsTaken >= hitsNeeded && coolDownTimer == 0)
+        if (Input.GetKeyDown(theKey) && hitsTaken >= hitsNeeded)
         {
             Instantiate(ore, transform.position, Quaternion.identity);
+            veinLightUp = false;
             coolDownTimer = coolDown;
             hitsTaken = 0;
         }
