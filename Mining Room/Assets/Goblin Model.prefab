@@ -199,10 +199,10 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4456906115092998}
-  - component: {fileID: 111418045583961720}
-  - component: {fileID: 54725985792004502}
   - component: {fileID: 136359758897686788}
+  - component: {fileID: 111418045583961720}
   - component: {fileID: 114308093398362834}
+  - component: {fileID: 54725985792004502}
   m_Layer: 0
   m_Name: Goblin Model
   m_TagString: Untagged
@@ -7478,9 +7478,9 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1033869949488380}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 8, y: 8, z: 8}
+  m_LocalScale: {x: 6, y: 6, z: 6}
   m_Children:
   - {fileID: 4450971066584458}
   - {fileID: 4000222034002916}
@@ -7489,7 +7489,7 @@ Transform:
   - {fileID: 4068004550475356}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!4 &4465418034451334
 Transform:
   m_ObjectHideFlags: 1
@@ -10257,7 +10257,7 @@ Rigidbody:
   serializedVersion: 2
   m_Mass: 0.0000001
   m_Drag: 0
-  m_AngularDrag: 0
+  m_AngularDrag: 0.05
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
@@ -10307,12 +10307,12 @@ CapsuleCollider:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1033869949488380}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   m_Radius: 0.5
   m_Height: 1.61
   m_Direction: 1
-  m_Center: {x: 0.02, y: 0.64, z: 0}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!137 &137245786284820470
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 1

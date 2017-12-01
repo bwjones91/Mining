@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class GoblinThrow : MonoBehaviour {
+    
 
     private Rigidbody rb;
 
@@ -29,6 +30,7 @@ public class GoblinThrow : MonoBehaviour {
         rb.mass = 1;
         rb.constraints = RigidbodyConstraints.None;
         rb.AddForce(new Vector3(-3000f, 800f, 0f));
+        rb.AddTorque(0, 0, 200f);
         cameraShaking.ShakeCamera(1.5f, .5f);
         Destroy(gameObject, 5);
     }
@@ -41,6 +43,7 @@ public class GoblinThrow : MonoBehaviour {
         rb.mass = 1;
         rb.constraints = RigidbodyConstraints.None;
         rb.AddForce(new Vector3(3000f, 800f, 0f));
+        rb.AddTorque(0, 0, -200f);
         cameraShaking.ShakeCamera(1.5f, .5f);
         Destroy(gameObject, 5);
     }

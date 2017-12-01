@@ -8,6 +8,7 @@ public class oreSpawn : MonoBehaviour {
     public KeyCode theKey;
     public float coolDown;
     public float hitsNeeded;
+    public Renderer rend;
 
     private float hitsTaken;
     private float coolDownTimer;
@@ -15,7 +16,7 @@ public class oreSpawn : MonoBehaviour {
     
 
     void Start () {
-        
+        rend.enabled = true;
 	}
 	
 	
@@ -33,6 +34,7 @@ public class oreSpawn : MonoBehaviour {
         if (coolDownTimer < 0)
         {
             coolDownTimer = 0;
+            rend.enabled = true;
             veinLightUp = true;
 
         }
@@ -40,10 +42,13 @@ public class oreSpawn : MonoBehaviour {
         if (Input.GetKeyDown(theKey) && hitsTaken >= hitsNeeded)
         {
             Instantiate(ore, transform.position, Quaternion.identity);
+            rend.enabled = false;
             veinLightUp = false;
             coolDownTimer = coolDown;
             hitsTaken = 0;
         }
+
+
 	}
 
      

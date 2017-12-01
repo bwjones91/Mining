@@ -7,12 +7,14 @@ public class OreList : MonoBehaviour {
 
     public List<Ore> ores = new List<Ore>();
 
-    public Text mithrilText;
-    public Text adamantiteText;
-    public Text goldText;
-    public Text pyroniumText;
-    public Text silverText;
-    public Text grapiteText;
+    public Text mithrilNeededText;
+    public Text adamantiteNeededText;
+    public Text goldNeededText;
+    public Text pyroniumNeededText;
+    public Text silverNeededText;
+    public Text grapiteNeededText;
+
+
     public Text runeCounterText;
 
     public Rigidbody mithrilOre;
@@ -28,20 +30,26 @@ public class OreList : MonoBehaviour {
     int pyroniumNeeded;
     int silverNeeded;
     int grapiteNeeded;
+    bool doorOpen;
 
-    int runeCounter;
+    public int runeCounter;
 
     private Rigidbody instance;
 
-
+    public GameController gameController;
 
 	void Start () {
         OresNeeded();
         SetNeededText();
+        doorOpen = false;
     }
 
     void Update () {
-            
+        if(runeCounter == 3)
+        {
+            doorOpen = true;
+            print(doorOpen);
+        }
     }
 
     private void OnTriggerEnter(Collider collider)
@@ -72,20 +80,22 @@ public class OreList : MonoBehaviour {
         }
     }
 
+
+
     void SetNeededText()
     {
-        mithrilText.text = mithrilNeeded.ToString();
-        adamantiteText.text = adamantiteNeeded.ToString();
-        goldText.text = goldNeeded.ToString();
-        pyroniumText.text = pyroniumNeeded.ToString();
-        silverText.text = silverNeeded.ToString();
-        grapiteText.text = grapiteNeeded.ToString();
+        mithrilNeededText.text = mithrilNeeded.ToString();
+        adamantiteNeededText.text = adamantiteNeeded.ToString();
+        goldNeededText.text = goldNeeded.ToString();
+        pyroniumNeededText.text = pyroniumNeeded.ToString();
+        silverNeededText.text = silverNeeded.ToString();
+        grapiteNeededText.text = grapiteNeeded.ToString();
     }
 
     public void OresNeeded()
     {
-        mithrilNeeded = Random.Range(3, 4);
-        adamantiteNeeded = Random.Range(4, 6);
+        mithrilNeeded = Random.Range(4, 6);
+        adamantiteNeeded = Random.Range(3, 4);
         goldNeeded = Random.Range(1, 2);
         pyroniumNeeded = Random.Range(3, 5);
         silverNeeded = Random.Range(2, 3);
@@ -139,6 +149,7 @@ public class OreList : MonoBehaviour {
         }
 
         ores.Remove(oreThrown);
+        gameController.SetCurrentOreText();
     }
 
     public void ThrowRepeating()
@@ -158,10 +169,12 @@ public class OreList : MonoBehaviour {
         SetNeededText();
         runeCounter++;
         runeCounterText.text = "Runes: " + runeCounter.ToString();
+        gameController.SetCurrentOreText();
     }
 
     public void OffLoading()
     {
         Invoke("OreClear", 2f);
+        gameController.SetCurrentOreText();
     }
 }

@@ -10,6 +10,7 @@ public class minecartMovement : MonoBehaviour {
     public GameObject goblin;
     public OreList oreList;
     public GoblinThrow goblinThrowing;
+    public GameController gameController;
 
     private float thrust;
     private bool right;
@@ -129,7 +130,7 @@ public class minecartMovement : MonoBehaviour {
             goblinSpawnChance = Random.Range(0f, 100f);
             if(goblinSpawnChance <= chanceToSpawn && goblinsOnScreen < 1)
             {
-                newGoblin = Instantiate(goblin, transform.position, Quaternion.identity);
+                newGoblin = Instantiate(goblin, transform.position, goblin.transform.rotation);
                 newGoblin.transform.parent = gameObject.transform;
                 goblinThrowing = GetComponentInChildren<GoblinThrow>();
                 goblinsOnScreen++;
@@ -137,6 +138,7 @@ public class minecartMovement : MonoBehaviour {
             }
 
         }
+        gameController.SetCurrentOreText();
     }
 
 
