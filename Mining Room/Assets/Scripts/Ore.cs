@@ -17,8 +17,9 @@ public class Ore : MonoBehaviour {
     public OreType oreType;
 
     OreList oreList;
+    
 
-	void Start () {
+    void Start () {
         oreList = GameObject.FindGameObjectWithTag("Player").GetComponent<OreList>();
     }
 	
@@ -39,5 +40,4 @@ public class Ore : MonoBehaviour {
             Destroy(this.gameObject);
         }
     }
-
 }

@@ -177,7 +177,7 @@ public class OreList : MonoBehaviour {
 
     public void OffLoading()
     {
-        Invoke("OreClear", 2f);
+        Invoke("OreClear", 0.5f);
         gameController.SetCurrentOreText();
     }
 }
