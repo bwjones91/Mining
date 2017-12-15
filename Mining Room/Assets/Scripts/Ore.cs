@@ -20,7 +20,6 @@ public class Ore : MonoBehaviour {
     
 
     void Start () {
-        oreList = GameObject.FindGameObjectWithTag("Player").GetComponent<OreList>();
     }
 	
 	void Update () {
