@@ -1,0 +1,123 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!21 &2100000
+Material:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: IceBoulders
+  m_Shader: {fileID: 4800000, guid: c06d243c6b195bd4c839adc31dccdb94, type: 3}
+  m_ShaderKeywords: _ISICE_ON _NORMALMAP
+  m_LightmapFlags: 5
+  m_EnableInstancingVariants: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _BlendDiffuse:
+        m_Texture: {fileID: 2800000, guid: ab7ff7894ce89ba4b9d1c9d1033b3250, type: 3}
+        m_Scale: {x: 10, y: 10}
+        m_Offset: {x: 0, y: 0}
+    - _BlendDiffuse2:
+        m_Texture: {fileID: 2800000, guid: e2b4fff7d4c245b4b9236a2bfe16abcc, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _BlendNormal:
+        m_Texture: {fileID: 2800000, guid: 6b7937d4865d0a2488ac42bb8ea068f8, type: 3}
+        m_Scale: {x: 8, y: 8}
+        m_Offset: {x: 0, y: 0}
+    - _BlendNormal2:
+        m_Texture: {fileID: 2800000, guid: fea0ffc4b57a10549bc5ca98741d7ea4, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _BumpMap:
+        m_Texture: {fileID: 2800000, guid: 06752034a5813124b9d1b29e536dbe98, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DetailAlbedo:
+        m_Texture: {fileID: 2800000, guid: ec87c634ed0844b4ca242e8f5e7806a0, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DetailAlbedoMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DetailMask:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DetailNormal:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 3, y: 3}
+        m_Offset: {x: -0.05, y: -0.03}
+    - _DetailNormalMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _EmissionMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Heightmap:
+        m_Texture: {fileID: 2800000, guid: 89dc7fa6bbadb4048afa50c695549d20, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MainTex:
+        m_Texture: {fileID: 2800000, guid: 72299493c8cfb55418641cc40852af27, type: 3}
+        m_Scale: {x: 12, y: 12}
+        m_Offset: {x: 0, y: 0}
+    - _Mask:
+        m_Texture: {fileID: 2800000, guid: 807d31a05de58ea49b0d87e07f5bcc74, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MetallicGlossMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _OcclusionMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _ParallaxMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Floats:
+    - _AOStrength: 0.56
+    - _AtlasIndex: 1
+    - _BlendDiffuseScale: 8
+    - _BlendMaskIntensity: 0.72
+    - _BlendUpFactor: 0.35
+    - _BumpScale: 1
+    - _Cutoff: 0
+    - _DetailNormalMapScale: 1
+    - _DetailNormalStrength: 0
+    - _DirectionalInfluence: -0.12
+    - _DirectionalIntensity: 0
+    - _DirectionalIntensityNormal: 1
+    - _DirectionalIntensityOverlay: 1
+    - _DirectionalIntesnityNormal: 1
+    - _Displacement: 0.133
+    - _DstBlend: 0
+    - _EdgeLength: 19.3
+    - _Glossiness: 0.759
+    - _IsIce: 1
+    - _Metallic: 1
+    - _Mode: 0
+    - _OcclusionStrength: 1
+    - _OverlayIntensity: 0.53
+    - _Parallax: 0.005
+    - _Shininess: 0.26
+    - _SrcBlend: 1
+    - _TessMidPoint: 0.74
+    - _UVSec: 0
+    - _ZWrite: 1
+    m_Colors:
+    - _Color: {r: 1, g: 1, b: 1, a: 1}
+    - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
+    - _SpecColor: {r: 0.13235295, g: 0.13235295, b: 0.13235295, a: 1}
+    - _TintColor: {r: 0.7352978, g: 0.7352978, b: 0.7352978, a: 1}
+    - _TintColor2: {r: 0.7372549, g: 0.7372549, b: 0.7372549, a: 1}
