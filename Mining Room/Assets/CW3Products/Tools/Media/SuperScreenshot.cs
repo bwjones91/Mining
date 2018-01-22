@@ -9,6 +9,6 @@ public class SuperScreenshot : MonoBehaviour {
 
 	void Update() {
 		if (Input.GetKeyDown("m"))
-			Application.CaptureScreenshot(fileName, superSize);
+			ScreenCapture.CaptureScreenshot(fileName, superSize);
 	}
 }
