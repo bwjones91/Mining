@@ -15,12 +15,13 @@ public class minecartMovement : MonoBehaviour {
     private float thrust;
     private bool right;
     public float thrustDirection;
-    private float touchCount;
+    //private float touchCount;
     private float goblinSpawnChance;
     private int goblinsOnScreen;
     private GameObject newGoblin;
-    private bool leftButton;
-    private bool rightButton;
+    //private bool leftButton;
+    //private bool rightButton;
+    private float leverMovement = 512f;
 
 
 
@@ -45,7 +46,7 @@ public class minecartMovement : MonoBehaviour {
             thrustDirection = -1f;
         }        
 
-        if (Input.GetKeyDown(KeyCode.LeftArrow))
+        /*if (Input.GetKeyDown(KeyCode.LeftArrow))
         {
             leftButton = true;
         }
@@ -53,12 +54,12 @@ public class minecartMovement : MonoBehaviour {
         if (Input.GetKeyDown(KeyCode.RightArrow))
         {
             rightButton = true;
-        }
+        }*/
     }
 
     private void FixedUpdate()
     {
-        if (leftButton == true && touchCount < 1)
+        /*if (leftButton == true && touchCount < 1)
         {
             thrust = Random.Range(10, 20);
             GetComponent<Rigidbody>().AddForce(new Vector3(thrustDirection, 0f, 0f) * thrust);
@@ -72,6 +73,12 @@ public class minecartMovement : MonoBehaviour {
             GetComponent<Rigidbody>().AddForce(new Vector3(thrustDirection, 0f, 0f) * thrust);
             touchCount--;
             rightButton = false;
+        }*/
+
+        if (Input.GetKeyDown(KeyCode.UpArrow))
+        {
+            thrust = (leverMovement / 512) * 100f;
+            GetComponent<Rigidbody>().AddForce(new Vector3(thrustDirection, 0f, 0f) * thrust);
         }
     }
 
