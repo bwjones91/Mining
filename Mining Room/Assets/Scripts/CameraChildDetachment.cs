@@ -17,6 +17,7 @@ public class CameraChildDetachment : MonoBehaviour {
     private float journeyLength;
 
     private bool isLerp = false;
+    private bool hasTriggered = false;
 
     void Start() {
         
@@ -32,12 +33,16 @@ public class CameraChildDetachment : MonoBehaviour {
 
     private void OnTriggerEnter(Collider other)
     {
-        myCameraObject.parent = null;
-        funnel.transform.position = new Vector3(225.5f, 234f, 35.3f);
-        funnelFloor.SetActive(false);
+        if (hasTriggered == false)
+        {
+            myCameraObject.parent = null;
+            funnel.transform.position = new Vector3(225.5f, 234f, 35.3f);
+            funnelFloor.SetActive(false);
 
-        startTime = Time.time;
-        isLerp = true;
+            startTime = Time.time;
+            isLerp = true;
+            hasTriggered = true;
+        }
         
 
         //StartCoroutine(MoveSpotlight());
