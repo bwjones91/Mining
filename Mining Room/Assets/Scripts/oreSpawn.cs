@@ -9,11 +9,16 @@ public class oreSpawn : MonoBehaviour {
     public float coolDown;
     public float hitsNeeded;
     public Renderer rend;
-
+    public GameObject coloredLight;
+    public Light thisLight;
+    
     private float hitsTaken;
     private float coolDownTimer;
     private bool veinLightUp;
     private bool shaking = false;
+    private bool changeLight = false;
+    private float lightMax;
+    private float lightChange;
 
     //private ObjectShake objectShaking;
     Vector3 originalPos;
@@ -24,6 +29,8 @@ public class oreSpawn : MonoBehaviour {
     void Start () {
         rend.enabled = true;
         originalPos = transform.position;
+        lightMax = thisLight.intensity;
+        lightChange = lightMax / 12;
     }
 	
 	
@@ -45,7 +52,8 @@ public class oreSpawn : MonoBehaviour {
             coolDownTimer = 0;
             rend.enabled = true;
             veinLightUp = true;
-
+            //coloredLight.SetActive(true);
+            changeLight = false;
         }
 
         if (Input.GetKeyDown(theKey) && hitsTaken >= hitsNeeded)
@@ -64,12 +72,26 @@ public class oreSpawn : MonoBehaviour {
 
             transform.position = newPos;
         }
+
+        /*if(changeLight && thisLight.intensity >= 0)
+        {
+            thisLight.intensity -= lightChange;
+            //thisLight.intensity = 0f;
+        }*/
+
+        if(changeLight == false && thisLight.intensity < lightMax)
+        {
+            thisLight.intensity += lightChange;
+        }
     }
 
     void CreateOre()
     {
         Instantiate(ore, transform.position, Quaternion.identity);
         rend.enabled = false;
+        thisLight.intensity = 0f;
+        //coloredLight.SetActive(false);
+        changeLight = true;
     }
 
     public void ShakeMe()
