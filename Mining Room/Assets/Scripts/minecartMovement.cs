@@ -11,28 +11,70 @@ public class minecartMovement : MonoBehaviour {
     public OreList oreList;
     public GoblinThrow goblinThrowing;
     public GameController gameController;
+    public float thrustVariable;
+    public float localSpeed;
+    public float maxSpeed;
 
     private float thrust;
     private bool right;
-    public float thrustDirection;
+    private float thrustDirection;
     //private float touchCount;
     private float goblinSpawnChance;
     private int goblinsOnScreen;
     private GameObject newGoblin;
     //private bool leftButton;
     //private bool rightButton;
-    private float leverMovement = 512f;
-
+    private float leverMovement;
+    private ArduinoCommunicator AC;
+    private float force;
+    private Rigidbody rb;
+    private bool speedLimiterLeft;
+    
 
 
     void Start () {
-
+        rb = this.GetComponent<Rigidbody>();
+        AC = GameObject.Find("Arduino Communication").GetComponent<ArduinoCommunicator>();
+        thrustDirection = -1f;
+        speedLimiterLeft = true;
 	}
 
 	void Update () {
-        minecartSpeed = GetComponent<Rigidbody>().velocity.magnitude;
+        leverMovement = Mathf.Abs(AC.GetMessageIN());
 
-        if(Input.GetKeyDown(KeyCode.DownArrow))
+        minecartSpeed = GetComponent<Rigidbody>().velocity.magnitude;
+        var localSpeed = transform.InverseTransformDirection(GetComponent<Rigidbody>().velocity);
+        
+
+        if (Input.GetKeyDown(KeyCode.LeftArrow))
+        {
+            speedLimiterLeft = true;
+            if (localSpeed.x > -maxSpeed)
+            {
+                thrustDirection = -1f;
+            }
+        }
+
+        if (Input.GetKeyDown(KeyCode.RightArrow) && localSpeed.x < maxSpeed)
+        {
+            speedLimiterLeft = false;
+            if (localSpeed.x < maxSpeed)
+            {
+                thrustDirection = 1f;
+            }
+        }
+
+        if (localSpeed.x >= maxSpeed && speedLimiterLeft == false)
+        {
+            thrustDirection = 0f;
+        }
+
+        if (localSpeed.x <= -maxSpeed && speedLimiterLeft == true)
+        {
+            thrustDirection = 0f;
+        }
+
+        /*if(Input.GetKeyDown(KeyCode.DownArrow))
         {
             right = !right;
         }
@@ -44,7 +86,7 @@ public class minecartMovement : MonoBehaviour {
         else
         {
             thrustDirection = -1f;
-        }        
+        }      */
 
         /*if (Input.GetKeyDown(KeyCode.LeftArrow))
         {
@@ -75,11 +117,11 @@ public class minecartMovement : MonoBehaviour {
             rightButton = false;
         }*/
 
-        if (Input.GetKeyDown(KeyCode.UpArrow))
-        {
-            thrust = (leverMovement / 512) * 100f;
-            GetComponent<Rigidbody>().AddForce(new Vector3(thrustDirection, 0f, 0f) * thrust);
-        }
+        //if (Input.GetKeyDown(KeyCode.UpArrow))
+        //{
+            thrust = (leverMovement) * thrustVariable;
+            rb.AddForce(new Vector3(thrustDirection, 0f, 0f) * thrust);
+        //}
     }
 
     private void OnCollisionEnter(Collision collision)
