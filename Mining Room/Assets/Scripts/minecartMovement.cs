@@ -44,7 +44,17 @@ public class minecartMovement : MonoBehaviour {
 
         minecartSpeed = GetComponent<Rigidbody>().velocity.magnitude;
         var localSpeed = transform.InverseTransformDirection(GetComponent<Rigidbody>().velocity);
+        print(localSpeed.x);
         
+        if(localSpeed.x < maxSpeed && speedLimiterLeft == false)
+        {
+            thrustDirection = 1f;
+        }
+
+        if (localSpeed.x > -maxSpeed && speedLimiterLeft == true)
+        {
+            thrustDirection = -1f;
+        }
 
         if (Input.GetKeyDown(KeyCode.LeftArrow))
         {

@@ -6,9 +6,11 @@ public class CameraChildDetachment : MonoBehaviour {
 
     public Transform myCameraObject;
 
-    public GameObject funnel;
-    public GameObject funnelFloor;
+    //public GameObject funnel;
+    //public GameObject funnelFloor;
     public GameObject spotLight;
+    public GameObject fallingRocks;
+    public GameObject rightWall;
 
     public Transform startMarker;
     public Transform endMarker;
@@ -22,6 +24,8 @@ public class CameraChildDetachment : MonoBehaviour {
     void Start() {
         
         journeyLength = Vector3.Distance(startMarker.position, endMarker.position);
+        fallingRocks.SetActive(false);
+        rightWall.SetActive(false);
     }
 
     void Update() {
@@ -36,8 +40,10 @@ public class CameraChildDetachment : MonoBehaviour {
         if (hasTriggered == false)
         {
             myCameraObject.parent = null;
-            funnel.transform.position = new Vector3(225.5f, 234f, 35.3f);
-            funnelFloor.SetActive(false);
+            //funnel.transform.position = new Vector3(225.5f, 234f, 35.3f);
+            //funnelFloor.SetActive(false);
+            fallingRocks.SetActive(true);
+            rightWall.SetActive(true);
 
             startTime = Time.time;
             isLerp = true;
