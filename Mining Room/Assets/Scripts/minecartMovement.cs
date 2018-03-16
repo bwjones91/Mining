@@ -44,7 +44,6 @@ public class minecartMovement : MonoBehaviour {
 
         minecartSpeed = GetComponent<Rigidbody>().velocity.magnitude;
         var localSpeed = transform.InverseTransformDirection(GetComponent<Rigidbody>().velocity);
-        print(localSpeed.x);
         
         if(localSpeed.x < maxSpeed && speedLimiterLeft == false)
         {
@@ -111,22 +110,6 @@ public class minecartMovement : MonoBehaviour {
 
     private void FixedUpdate()
     {
-        /*if (leftButton == true && touchCount < 1)
-        {
-            thrust = Random.Range(10, 20);
-            GetComponent<Rigidbody>().AddForce(new Vector3(thrustDirection, 0f, 0f) * thrust);
-            touchCount++;
-            leftButton = false;
-        }
-
-        if(rightButton == true && touchCount > 0)
-        {
-            thrust = Random.Range(10, 20);
-            GetComponent<Rigidbody>().AddForce(new Vector3(thrustDirection, 0f, 0f) * thrust);
-            touchCount--;
-            rightButton = false;
-        }*/
-
         //if (Input.GetKeyDown(KeyCode.UpArrow))
         //{
             thrust = (leverMovement) * thrustVariable;
