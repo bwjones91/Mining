@@ -7,6 +7,8 @@ public class OreList : MonoBehaviour {
 
     public List<Ore> ores = new List<Ore>();
 
+    public List<Ore> oresNeeded = new List<Ore>();
+
     public Text mithrilNeededText;
     public Text adamantiteNeededText;
     public Text goldNeededText;
@@ -94,12 +96,36 @@ public class OreList : MonoBehaviour {
 
     public void OresNeeded()
     {
-        mithrilNeeded = Random.Range(4, 6);
+        mithrilNeeded = Random.Range(3, 4);
         adamantiteNeeded = Random.Range(3, 4);
-        goldNeeded = Random.Range(1, 2);
-        pyroniumNeeded = Random.Range(3, 5);
-        silverNeeded = Random.Range(2, 3);
+        goldNeeded = Random.Range(3, 4);
+        pyroniumNeeded = Random.Range(3, 4);
+        silverNeeded = Random.Range(3, 4);
         grapiteNeeded = 20 - (mithrilNeeded + adamantiteNeeded + goldNeeded + pyroniumNeeded + silverNeeded);
+        for(int i = 0; i < mithrilNeeded; i++)
+        {
+            oresNeeded.Add(mithrilOre.GetComponent<Ore>());
+        }
+        for (int i = 0; i < adamantiteNeeded; i++)
+        {
+            oresNeeded.Add(adamantiteOre.GetComponent<Ore>());
+        }
+        for (int i = 0; i < goldNeeded; i++)
+        {
+            oresNeeded.Add(goldOre.GetComponent<Ore>());
+        }
+        for (int i = 0; i < pyroniumNeeded; i++)
+        {
+            oresNeeded.Add(pyroniumOre.GetComponent<Ore>());
+        }
+        for (int i = 0; i < silverNeeded; i++)
+        {
+            oresNeeded.Add(silverOre.GetComponent<Ore>());
+        }
+        for (int i = 0; i < grapiteNeeded; i++)
+        {
+            oresNeeded.Add(grapiteOre.GetComponent<Ore>());
+        }
         print("Mithril Needed" + mithrilNeeded);
         print("Adamantite Needed" + adamantiteNeeded);
         print("Gold Needed" + goldNeeded);
