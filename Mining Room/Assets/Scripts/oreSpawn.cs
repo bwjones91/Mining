@@ -47,14 +47,14 @@ public class oreSpawn : MonoBehaviour {
             coolDownTimer -= Time.deltaTime;
         }
 
-        if (coolDownTimer < 0)
+        /*if (coolDownTimer < 0)
         {
             coolDownTimer = 0;
             rend.enabled = true;
             veinLightUp = true;
             //coloredLight.SetActive(true);
             changeLight = false;
-        }
+        }*/
 
         if (Input.GetKeyDown(theKey) && hitsTaken >= hitsNeeded)
         {

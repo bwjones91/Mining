@@ -14,16 +14,21 @@ public class minecartMovement : MonoBehaviour {
     public float thrustVariable;
     public float localSpeed;
     public float maxSpeed;
+    public OreSwitcher oreSwitcher;
+
+    public Rigidbody mithrilOre;
+    public Rigidbody adamantiteOre;
+    public Rigidbody goldOre;
+    public Rigidbody pyroniumOre;
+    public Rigidbody silverOre;
+    public Rigidbody grapiteOre;
 
     private float thrust;
     private bool right;
     private float thrustDirection;
-    //private float touchCount;
     private float goblinSpawnChance;
     private int goblinsOnScreen;
     private GameObject newGoblin;
-    //private bool leftButton;
-    //private bool rightButton;
     private float leverMovement;
     private ArduinoCommunicator AC;
     private float force;
@@ -82,39 +87,15 @@ public class minecartMovement : MonoBehaviour {
         {
             thrustDirection = 0f;
         }
-
-        /*if(Input.GetKeyDown(KeyCode.DownArrow))
-        {
-            right = !right;
-        }
-
-        if(right == true)
-        {
-            thrustDirection = 1f;
-        }
-        else
-        {
-            thrustDirection = -1f;
-        }      */
-
-        /*if (Input.GetKeyDown(KeyCode.LeftArrow))
-        {
-            leftButton = true;
-        }
-
-        if (Input.GetKeyDown(KeyCode.RightArrow))
-        {
-            rightButton = true;
-        }*/
+        
+        
     }
 
     private void FixedUpdate()
     {
-        //if (Input.GetKeyDown(KeyCode.UpArrow))
-        //{
-            thrust = (leverMovement) * thrustVariable;
-            rb.AddForce(new Vector3(thrustDirection, 0f, 0f) * thrust);
-        //}
+        thrust = (leverMovement) * thrustVariable;
+        rb.AddForce(new Vector3(thrustDirection, 0f, 0f) * thrust);
+        
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -151,21 +132,27 @@ public class minecartMovement : MonoBehaviour {
             {
                 case Ore.OreType.Mithril:
                     gameController.mithrilCounter++;
+                    oreSwitcher.oresNeeded.Remove(mithrilOre.GetComponent<Ore>());
                     break;
                 case Ore.OreType.Adamantite:
                     gameController.adamantiteCounter++;
+                    oreSwitcher.oresNeeded.Remove(adamantiteOre.GetComponent<Ore>());
                     break;
                 case Ore.OreType.Gold:
                     gameController.goldCounter++;
+                    oreSwitcher.oresNeeded.Remove(goldOre.GetComponent<Ore>());
                     break;
                 case Ore.OreType.Pyronium:
                     gameController.pyroniumCounter++;
+                    oreSwitcher.oresNeeded.Remove(pyroniumOre.GetComponent<Ore>());
                     break;
                 case Ore.OreType.Silver:
                     gameController.silverCounter++;
+                    oreSwitcher.oresNeeded.Remove(silverOre.GetComponent<Ore>());
                     break;
                 case Ore.OreType.Grapite:
                     gameController.grapiteCounter++;
+                    oreSwitcher.oresNeeded.Remove(grapiteOre.GetComponent<Ore>());
                     break;
             }
 

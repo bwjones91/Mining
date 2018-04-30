@@ -12,6 +12,8 @@ public class CameraChildDetachment : MonoBehaviour {
     public GameObject fallingRocks;
     public GameObject rightWall;
 
+    public GameObject gameController;
+
     public Transform startMarker;
     public Transform endMarker;
     public float speed = 1.0f;
@@ -48,6 +50,7 @@ public class CameraChildDetachment : MonoBehaviour {
             startTime = Time.time;
             isLerp = true;
             hasTriggered = true;
+            gameController.GetComponent<OreSwitcher>().enabled = true;
         }
         
 
