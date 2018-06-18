@@ -43,6 +43,7 @@ public class OreSwitcher : MonoBehaviour {
     public GameObject pyroniumPermanentOre;
     public GameObject silverPermanentOre;
     public GameObject grapitePermanentOre;
+    
 
     private GameObject permanentOreInstance;
 
@@ -55,7 +56,7 @@ public class OreSwitcher : MonoBehaviour {
     
 
 	void Start () {
-        InvokeRepeating("DisplayOre", 0f, 10f);
+        Invoke("DisplayOre", 2f);
         OresNeeded();
 	}
 	
@@ -73,6 +74,8 @@ public class OreSwitcher : MonoBehaviour {
                 //oreToFade.color = alphaColorStart;
                 print("isLerp finished");
                 permanentOreInstance.GetComponent<oreSpawn>().enabled = false;
+                permanentOreInstance.SetActive(false);
+                Invoke("DisplayOre", 5f);
             }
         }
 
@@ -122,11 +125,13 @@ public class OreSwitcher : MonoBehaviour {
     public void DisplayOre()
     {
         var oreDisplayed = oresNeeded[Random.Range(0, oresNeeded.Count)];
-
+        print("lerp begin");
+        print(oreDisplayed);
         switch (oreDisplayed.oreType)
         {
             case Ore.OreType.Mithril:
                 permanentOreInstance = mithrilPermanentOre;
+                permanentOreInstance.SetActive(true);
                 //instance = Instantiate(mithrilDisplayOre, new Vector3(-165.5f, 9.2f, 23.7f), Quaternion.identity);
                 alphaColorStart = new Color(0.38f, 0.46f, 0.66f, 1f);
                 alphaColorFinish = new Color(0.38f, 0.46f, 0.66f, 0f);
@@ -136,6 +141,7 @@ public class OreSwitcher : MonoBehaviour {
                 break;
             case Ore.OreType.Adamantite:
                 permanentOreInstance = adamantitePermanentOre;
+                permanentOreInstance.SetActive(true);
                 //instance = Instantiate(adamantiteDisplayOre, new Vector3(-86f, 9.2f, 23.7f), Quaternion.identity);
                 alphaColorStart = new Color(0.03f, 0.44f, 0f, 1f);
                 alphaColorFinish = new Color(0.03f, 0.44f, 0f, 0f);
@@ -145,6 +151,7 @@ public class OreSwitcher : MonoBehaviour {
                 break;
             case Ore.OreType.Gold:
                 permanentOreInstance = goldPermanentOre;
+                permanentOreInstance.SetActive(true);
                 //instance = Instantiate(goldDisplayOre, new Vector3(-22f, 9.2f, 23.7f), Quaternion.identity);
                 alphaColorStart = new Color(1f, 0.84f, 0f, 1f);
                 alphaColorFinish = new Color(1f, 0.84f, 0f, 0f);
@@ -154,6 +161,7 @@ public class OreSwitcher : MonoBehaviour {
                 break;
             case Ore.OreType.Pyronium:
                 permanentOreInstance = pyroniumPermanentOre;
+                permanentOreInstance.SetActive(true);
                 //instance = Instantiate(pyroniumDisplayOre, new Vector3(39f, 9.2f, 23.7f), Quaternion.identity);
                 alphaColorStart = new Color(1f, 0f, 0f, 1f);
                 alphaColorFinish = new Color(4f, 0f, 0f, 0f);
@@ -163,6 +171,7 @@ public class OreSwitcher : MonoBehaviour {
                 break;
             case Ore.OreType.Silver:
                 permanentOreInstance = silverPermanentOre;
+                permanentOreInstance.SetActive(true);
                 //instance = Instantiate(silverDisplayOre, new Vector3(103f, 9.2f, 23.7f), Quaternion.identity);
                 alphaColorStart = new Color(0.75f, 0.75f, 0.75f, 1f);
                 alphaColorFinish = new Color(0.75f, 0.75f, 0.75f, 0f);
@@ -172,6 +181,7 @@ public class OreSwitcher : MonoBehaviour {
                 break;
             case Ore.OreType.Grapite:
                 permanentOreInstance = grapitePermanentOre;
+                permanentOreInstance.SetActive(true);
                 //instance = Instantiate(grapiteDisplayOre, new Vector3(163f, 9.2f, 23.7f), Quaternion.identity);
                 alphaColorStart = new Color(0.5f, 0f, 0.5f, 1f);
                 alphaColorFinish = new Color(0.5f, 0f, 0.5f, 0f);

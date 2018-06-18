@@ -11,9 +11,12 @@ public class oreSpawn : MonoBehaviour {
     public Renderer rend;
     public GameObject coloredLight;
     public Light thisLight;
-    
+    public AudioClip oreHitSound;
+    public GameObject oreLight;
+
+    private AudioSource source;
     private float hitsTaken;
-    private float coolDownTimer;
+    public float coolDownTimer;
     private bool veinLightUp;
     private bool shaking = false;
     private bool changeLight = false;
@@ -24,28 +27,33 @@ public class oreSpawn : MonoBehaviour {
     Vector3 originalPos;
     
     private float shakeAmt = 100f;
-    
+
+    void Awake() {
+        source = GetComponent<AudioSource>();
+    }
 
     void Start () {
-        rend.enabled = true;
+        //rend.enabled = true;
         originalPos = transform.position;
         lightMax = thisLight.intensity;
         lightChange = lightMax / 12;
+        //oreLight.SetActive(true);
     }
-	
-	
-	void Update () {
-        if (Input.GetKeyDown(theKey) && coolDownTimer == 0)
+
+
+    void Update () {
+        if (Input.GetKeyDown(theKey) /*&& coolDownTimer == 0*/)
         {
             hitsTaken++;
             ShakeMe();
+            source.PlayOneShot(oreHitSound, 1f);
             //objectShaking.ShakeOre(1.5f, 0.5f);
         }
 
-        if (coolDownTimer > 0)
+        /*if (coolDownTimer > 0)
         {
             coolDownTimer -= Time.deltaTime;
-        }
+        }*/
 
         /*if (coolDownTimer < 0)
         {
@@ -58,10 +66,12 @@ public class oreSpawn : MonoBehaviour {
 
         if (Input.GetKeyDown(theKey) && hitsTaken >= hitsNeeded)
         {
-            Invoke("CreateOre", 0.5f);
+            Invoke("CreateOre", 0f);
             veinLightUp = false;
-            coolDownTimer = coolDown;
+            //coolDownTimer = coolDown;
             hitsTaken = 0;
+            shaking = false;
+            gameObject.SetActive(false);
         }
 
         if (shaking)
@@ -79,7 +89,7 @@ public class oreSpawn : MonoBehaviour {
             //thisLight.intensity = 0f;
         }*/
 
-        if(changeLight == false && thisLight.intensity < lightMax)
+        if(/*changeLight == false && */thisLight.intensity < lightMax)
         {
             thisLight.intensity += lightChange;
         }
@@ -88,7 +98,7 @@ public class oreSpawn : MonoBehaviour {
     void CreateOre()
     {
         Instantiate(ore, transform.position, Quaternion.identity);
-        rend.enabled = false;
+        //rend.enabled = false;
         thisLight.intensity = 0f;
         //coloredLight.SetActive(false);
         changeLight = true;

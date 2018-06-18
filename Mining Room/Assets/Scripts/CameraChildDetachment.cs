@@ -11,12 +11,15 @@ public class CameraChildDetachment : MonoBehaviour {
     public GameObject spotLight;
     public GameObject fallingRocks;
     public GameObject rightWall;
+    public AudioClip caveInSound;
 
     public GameObject gameController;
-
+    
     public Transform startMarker;
     public Transform endMarker;
     public float speed = 1.0f;
+
+    private AudioSource source;
     private float startTime;
     private float journeyLength;
 
@@ -28,6 +31,7 @@ public class CameraChildDetachment : MonoBehaviour {
         journeyLength = Vector3.Distance(startMarker.position, endMarker.position);
         fallingRocks.SetActive(false);
         rightWall.SetActive(false);
+        source = GetComponent<AudioSource>();
     }
 
     void Update() {
@@ -46,6 +50,7 @@ public class CameraChildDetachment : MonoBehaviour {
             //funnelFloor.SetActive(false);
             fallingRocks.SetActive(true);
             rightWall.SetActive(true);
+            source.PlayOneShot(caveInSound, 1f);
 
             startTime = Time.time;
             isLerp = true;

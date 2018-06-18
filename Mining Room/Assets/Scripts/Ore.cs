@@ -15,12 +15,19 @@ public class Ore : MonoBehaviour {
     }
 
     public OreType oreType;
+    public AudioClip oreObtained;
+    public AudioClip oreBreak;
+
+    Collider oreCollider;
+    private AudioSource source;
 
     OreList oreList;
     
     
 
     void Start () {
+        source = GetComponent<AudioSource>();
+        oreCollider = GetComponent<Collider>();
     }
 	
 	void Update () {
@@ -32,12 +39,16 @@ public class Ore : MonoBehaviour {
         
         if (collider.gameObject.tag == "Ground")
         {
-            Destroy(this.gameObject);
+            oreCollider.enabled = false;
+            source.PlayOneShot(oreBreak, 5f);
+            Destroy(this.gameObject, 5);
         }
         if (collider.gameObject.tag == "Player")
         {
+            oreCollider.enabled = false;
+            source.PlayOneShot(oreObtained, 5f);
             oreList.ores.Add(gameObject.GetComponent<Ore>());
-            Destroy(this.gameObject);
+            Destroy(this.gameObject, 5);
         }
     }
 }

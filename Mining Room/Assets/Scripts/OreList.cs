@@ -26,6 +26,8 @@ public class OreList : MonoBehaviour {
     public Rigidbody silverOre;
     public Rigidbody grapiteOre;
 
+    
+
     /*int mithrilNeeded;
     int adamantiteNeeded;
     int goldNeeded;
@@ -35,7 +37,7 @@ public class OreList : MonoBehaviour {
     bool doorOpen;
 
     public int runeCounter;
-
+    
     private Rigidbody instance;
 
     public GameController gameController;
@@ -134,6 +136,7 @@ public class OreList : MonoBehaviour {
         print("Grapite Needed" + grapiteNeeded);
     }*/
 
+
     public void ThrowFunction()
     {
         if (ores.Count > 0)
@@ -146,32 +149,32 @@ public class OreList : MonoBehaviour {
             {
                 case Ore.OreType.Mithril:
                     instance = Instantiate(mithrilOre, transform.position + new Vector3(0f, 2f, 0f), Quaternion.identity);
-                    instance.AddForce(new Vector3(Random.Range(-500f, 500f), 250f, 0f));
+                    instance.AddForce(new Vector3(Random.Range(-3000f, 3000f), 3000f, 0f));
                     gameController.mithrilCounter--;
                     break;
                 case Ore.OreType.Adamantite:
                     instance = Instantiate(adamantiteOre, transform.position + new Vector3(0f, 2f, 0f), Quaternion.identity);
-                    instance.AddForce(new Vector3(Random.Range(-500f, 500f), 250f, 0f));
+                    instance.AddForce(new Vector3(Random.Range(-3000f, 3000f), 3000f, 0f));
                     gameController.adamantiteCounter--;
                     break;
                 case Ore.OreType.Gold:
                     instance = Instantiate(goldOre, transform.position + new Vector3(0f, 2f, 0f), Quaternion.identity);
-                    instance.AddForce(new Vector3(Random.Range(-500f, 500f), 250f, 0f));
+                    instance.AddForce(new Vector3(Random.Range(-3000f, 3000f), 3000f, 0f));
                     gameController.goldCounter--;
                     break;
                 case Ore.OreType.Pyronium:
                     instance = Instantiate(pyroniumOre, transform.position + new Vector3(0f, 2f, 0f), Quaternion.identity);
-                    instance.AddForce(new Vector3(Random.Range(-500f, 500f), 250f, 0f));
+                    instance.AddForce(new Vector3(Random.Range(-3000f, 3000f), 3000f, 0f));
                     gameController.pyroniumCounter--;
                     break;
                 case Ore.OreType.Silver:
                     instance = Instantiate(silverOre, transform.position + new Vector3(0f, 2f, 0f), Quaternion.identity);
-                    instance.AddForce(new Vector3(Random.Range(-500f, 500f), 250f, 0f));
+                    instance.AddForce(new Vector3(Random.Range(-3000f, 3000f), 3000f, 0f));
                     gameController.silverCounter--;
                     break;
                 case Ore.OreType.Grapite:
                     instance = Instantiate(grapiteOre, transform.position + new Vector3(0f, 2f, 0f), Quaternion.identity);
-                    instance.AddForce(new Vector3(Random.Range(-500f, 500f), 250f, 0f));
+                    instance.AddForce(new Vector3(Random.Range(-3000f, 3000f), 3000f, 0f));
                     gameController.grapiteCounter--;
                     break;
             }
