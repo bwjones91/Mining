@@ -22,8 +22,7 @@ public class oreSpawn : MonoBehaviour {
     private bool changeLight = false;
     private float lightMax;
     private float lightChange;
-
-    //private ObjectShake objectShaking;
+    
     Vector3 originalPos;
     
     private float shakeAmt = 100f;
@@ -33,42 +32,24 @@ public class oreSpawn : MonoBehaviour {
     }
 
     void Start () {
-        //rend.enabled = true;
         originalPos = transform.position;
         lightMax = thisLight.intensity;
         lightChange = lightMax / 12;
-        //oreLight.SetActive(true);
     }
 
 
     void Update () {
-        if (Input.GetKeyDown(theKey) /*&& coolDownTimer == 0*/)
+        if (Input.GetKeyDown(theKey))
         {
             hitsTaken++;
             ShakeMe();
             source.PlayOneShot(oreHitSound, 1f);
-            //objectShaking.ShakeOre(1.5f, 0.5f);
         }
-
-        /*if (coolDownTimer > 0)
-        {
-            coolDownTimer -= Time.deltaTime;
-        }*/
-
-        /*if (coolDownTimer < 0)
-        {
-            coolDownTimer = 0;
-            rend.enabled = true;
-            veinLightUp = true;
-            //coloredLight.SetActive(true);
-            changeLight = false;
-        }*/
 
         if (Input.GetKeyDown(theKey) && hitsTaken >= hitsNeeded)
         {
             Invoke("CreateOre", 0f);
             veinLightUp = false;
-            //coolDownTimer = coolDown;
             hitsTaken = 0;
             shaking = false;
             gameObject.SetActive(false);
@@ -83,13 +64,7 @@ public class oreSpawn : MonoBehaviour {
             transform.position = newPos;
         }
 
-        /*if(changeLight && thisLight.intensity >= 0)
-        {
-            thisLight.intensity -= lightChange;
-            //thisLight.intensity = 0f;
-        }*/
-
-        if(/*changeLight == false && */thisLight.intensity < lightMax)
+        if(thisLight.intensity < lightMax)
         {
             thisLight.intensity += lightChange;
         }
@@ -98,9 +73,7 @@ public class oreSpawn : MonoBehaviour {
     void CreateOre()
     {
         Instantiate(ore, transform.position, Quaternion.identity);
-        //rend.enabled = false;
         thisLight.intensity = 0f;
-        //coloredLight.SetActive(false);
         changeLight = true;
     }
 

@@ -11,14 +11,12 @@ public class OreSwitcher : MonoBehaviour {
     public GameObject goldDisplayOre;
     public GameObject pyroniumDisplayOre;
     public GameObject silverDisplayOre;
-    public GameObject grapiteDisplayOre;
 
     public Material mithrilDisplayMaterial;
     public Material adamantiteDisplayMaterial;
     public Material goldDisplayMaterial;
     public Material pyroniumDisplayMaterial;
     public Material silverDisplayMaterial;
-    public Material grapiteDisplayMaterial;
 
     private GameObject instance;
 
@@ -35,14 +33,12 @@ public class OreSwitcher : MonoBehaviour {
     public Rigidbody goldOre;
     public Rigidbody pyroniumOre;
     public Rigidbody silverOre;
-    public Rigidbody grapiteOre;
 
     public GameObject mithrilPermanentOre;
     public GameObject adamantitePermanentOre;
     public GameObject goldPermanentOre;
     public GameObject pyroniumPermanentOre;
     public GameObject silverPermanentOre;
-    public GameObject grapitePermanentOre;
     
 
     private GameObject permanentOreInstance;
@@ -52,8 +48,6 @@ public class OreSwitcher : MonoBehaviour {
     int goldNeeded;
     int pyroniumNeeded;
     int silverNeeded;
-    int grapiteNeeded;
-    
 
 	void Start () {
         Invoke("DisplayOre", 2f);
@@ -71,11 +65,9 @@ public class OreSwitcher : MonoBehaviour {
             {
                 isLerp = false;
                 Destroy(instance);
-                //oreToFade.color = alphaColorStart;
-                print("isLerp finished");
                 permanentOreInstance.GetComponent<oreSpawn>().enabled = false;
                 permanentOreInstance.SetActive(false);
-                Invoke("DisplayOre", 5f);
+                Invoke("DisplayOre", 0f);
             }
         }
 
@@ -85,11 +77,10 @@ public class OreSwitcher : MonoBehaviour {
     public void OresNeeded()
     {
         mithrilNeeded = Random.Range(3, 5);
-        adamantiteNeeded = Random.Range(3, 5);
-        goldNeeded = Random.Range(3, 4);
+        adamantiteNeeded = Random.Range(3, 4);
+        goldNeeded = Random.Range(3, 5);
         pyroniumNeeded = Random.Range(3, 5);
-        silverNeeded = Random.Range(3, 5);
-        grapiteNeeded = 20 - (mithrilNeeded + adamantiteNeeded + goldNeeded + pyroniumNeeded + silverNeeded);
+        silverNeeded = 20 - (mithrilNeeded + adamantiteNeeded + goldNeeded + pyroniumNeeded);
         for (int i = 0; i < mithrilNeeded; i++)
         {
             oresNeeded.Add(mithrilOre.GetComponent<Ore>());
@@ -110,23 +101,16 @@ public class OreSwitcher : MonoBehaviour {
         {
             oresNeeded.Add(silverOre.GetComponent<Ore>());
         }
-        for (int i = 0; i < grapiteNeeded; i++)
-        {
-            oresNeeded.Add(grapiteOre.GetComponent<Ore>());
-        }
         print("Mithril Needed" + mithrilNeeded);
         print("Adamantite Needed" + adamantiteNeeded);
         print("Gold Needed" + goldNeeded);
         print("Pyronium Needed" + pyroniumNeeded);
         print("Silver Needed" + silverNeeded);
-        print("Grapite Needed" + grapiteNeeded);
     }
 
     public void DisplayOre()
     {
         var oreDisplayed = oresNeeded[Random.Range(0, oresNeeded.Count)];
-        print("lerp begin");
-        print(oreDisplayed);
         switch (oreDisplayed.oreType)
         {
             case Ore.OreType.Mithril:
@@ -176,16 +160,6 @@ public class OreSwitcher : MonoBehaviour {
                 alphaColorStart = new Color(0.75f, 0.75f, 0.75f, 1f);
                 alphaColorFinish = new Color(0.75f, 0.75f, 0.75f, 0f);
                 oreToFade = silverDisplayMaterial;
-                startTime = Time.time;
-                isLerp = true;
-                break;
-            case Ore.OreType.Grapite:
-                permanentOreInstance = grapitePermanentOre;
-                permanentOreInstance.SetActive(true);
-                //instance = Instantiate(grapiteDisplayOre, new Vector3(163f, 9.2f, 23.7f), Quaternion.identity);
-                alphaColorStart = new Color(0.5f, 0f, 0.5f, 1f);
-                alphaColorFinish = new Color(0.5f, 0f, 0.5f, 0f);
-                oreToFade = grapiteDisplayMaterial;
                 startTime = Time.time;
                 isLerp = true;
                 break;

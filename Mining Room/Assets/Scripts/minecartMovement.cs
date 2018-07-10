@@ -7,6 +7,7 @@ public class minecartMovement : MonoBehaviour {
     public float  minecartSpeed;
     public float speedToThrowGoblin;
     public float chanceToSpawn;
+    public float goblinSpawnMultiplier;
     public GameObject goblin;
     public OreList oreList;
     public GoblinThrow goblinThrowing;
@@ -15,17 +16,19 @@ public class minecartMovement : MonoBehaviour {
     public float localSpeed;
     public float maxSpeed;
     public OreSwitcher oreSwitcher;
+    public AudioClip goblinCackle;
     public AudioClip wheelSqueak;
+    public AudioClip goblinScream;
     public float soundDelay;
     public float soundCheck;
     public float soundInput;
+    public AudioSource cackleSource;
 
     public Rigidbody mithrilOre;
     public Rigidbody adamantiteOre;
     public Rigidbody goldOre;
     public Rigidbody pyroniumOre;
     public Rigidbody silverOre;
-    public Rigidbody grapiteOre;
 
     private bool wheelSqueakPlay;
     private AudioSource source;
@@ -40,6 +43,7 @@ public class minecartMovement : MonoBehaviour {
     private float force;
     private Rigidbody rb;
     private bool speedLimiterLeft;
+    
     
 
 
@@ -96,8 +100,7 @@ public class minecartMovement : MonoBehaviour {
         {
             thrustDirection = 0f;
         }
-
-        //soundInput = 1 / minecartSpeed;
+        
         soundInput = minecartSpeed * -1;
         soundCheck = Mathf.InverseLerp(-500f, -10f, soundInput);
         soundDelay = soundCheck + 1;
@@ -108,7 +111,6 @@ public class minecartMovement : MonoBehaviour {
     {
         if (minecartSpeed > 10)
         {
-            print("about to play");
             source.PlayOneShot(wheelSqueak);
             Invoke("SoundLoop", soundDelay);
         }
@@ -116,8 +118,6 @@ public class minecartMovement : MonoBehaviour {
         {
             Invoke("SoundLoop", 0);
         }
-        
-        //wheelSqueakPlay = true;
     }
 
     private void FixedUpdate()
@@ -133,6 +133,8 @@ public class minecartMovement : MonoBehaviour {
         {
             oreList.CancelThrowing();
             goblinsOnScreen--;
+            cackleSource.Stop();
+            source.PlayOneShot(goblinScream, 20f);
 
             if(collision.gameObject.tag == "Left Wall")
             {
@@ -184,21 +186,23 @@ public class minecartMovement : MonoBehaviour {
                     oreList.ores.Add(silverOre.GetComponent<Ore>());
                     oreSwitcher.oresNeeded.Remove(silverOre.GetComponent<Ore>());
                     break;
-                case Ore.OreType.Grapite:
-                    gameController.grapiteCounter++;
-                    oreList.ores.Add(grapiteOre.GetComponent<Ore>());
-                    oreSwitcher.oresNeeded.Remove(grapiteOre.GetComponent<Ore>());
-                    break;
             }
 
-            goblinSpawnChance = Random.Range(0f, 100f);
+            goblinSpawnChance = (Random.Range(0f, 100f)) * goblinSpawnMultiplier;
             if(goblinSpawnChance <= chanceToSpawn && goblinsOnScreen < 1)
             {
+                source.PlayOneShot(goblinCackle, 30f);
                 newGoblin = Instantiate(goblin, transform.position, goblin.transform.rotation);
                 newGoblin.transform.parent = gameObject.transform;
                 goblinThrowing = GetComponentInChildren<GoblinThrow>();
                 goblinsOnScreen++;
                 oreList.ThrowRepeating();
+                goblinSpawnMultiplier = 5;
+            }
+            
+            if(goblinSpawnChance > chanceToSpawn)
+            {
+                goblinSpawnMultiplier--;
             }
 
         }

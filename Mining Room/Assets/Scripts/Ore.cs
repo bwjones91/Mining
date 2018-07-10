@@ -11,7 +11,6 @@ public class Ore : MonoBehaviour {
         Gold,
         Pyronium,
         Silver,
-        Grapite
     }
 
     public OreType oreType;
@@ -20,11 +19,7 @@ public class Ore : MonoBehaviour {
 
     Collider oreCollider;
     private AudioSource source;
-
-    OreList oreList;
     
-    
-
     void Start () {
         source = GetComponent<AudioSource>();
         oreCollider = GetComponent<Collider>();
@@ -40,14 +35,13 @@ public class Ore : MonoBehaviour {
         if (collider.gameObject.tag == "Ground")
         {
             oreCollider.enabled = false;
-            source.PlayOneShot(oreBreak, 5f);
+            source.PlayOneShot(oreBreak, 2f);
             Destroy(this.gameObject, 5);
         }
         if (collider.gameObject.tag == "Player")
         {
             oreCollider.enabled = false;
-            source.PlayOneShot(oreObtained, 5f);
-            oreList.ores.Add(gameObject.GetComponent<Ore>());
+            source.PlayOneShot(oreObtained, 2f);
             Destroy(this.gameObject, 5);
         }
     }

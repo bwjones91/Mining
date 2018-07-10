@@ -5,15 +5,14 @@ using UnityEngine;
 public class CameraChildDetachment : MonoBehaviour {
 
     public Transform myCameraObject;
-
-    //public GameObject funnel;
-    //public GameObject funnelFloor;
+    
     public GameObject spotLight;
     public GameObject fallingRocks;
     public GameObject rightWall;
     public AudioClip caveInSound;
 
     public GameObject gameController;
+    public GameObject goblin;
     
     public Transform startMarker;
     public Transform endMarker;
@@ -46,8 +45,6 @@ public class CameraChildDetachment : MonoBehaviour {
         if (hasTriggered == false)
         {
             myCameraObject.parent = null;
-            //funnel.transform.position = new Vector3(225.5f, 234f, 35.3f);
-            //funnelFloor.SetActive(false);
             fallingRocks.SetActive(true);
             rightWall.SetActive(true);
             source.PlayOneShot(caveInSound, 1f);
@@ -56,12 +53,8 @@ public class CameraChildDetachment : MonoBehaviour {
             isLerp = true;
             hasTriggered = true;
             gameController.GetComponent<OreSwitcher>().enabled = true;
+            goblin.SetActive(true);
         }
-        
-
-        //StartCoroutine(MoveSpotlight());
-        //yield return new WaitForSeconds(2f);
-        //spotLight.transform.position = new Vector3(234.4f, 234f, 72.5f);
     }
 
     void SpotlightPositionChanging()
@@ -70,11 +63,4 @@ public class CameraChildDetachment : MonoBehaviour {
         float fracJourney = distCovered / journeyLength;
         spotLight.transform.position = Vector3.Lerp(startMarker.position, endMarker.position, fracJourney);
     }
-
-    /*IEnumerator MoveSpotlight()
-    {
-        yield return new WaitForSeconds(2f);
-        spotLight.transform.position = new Vector3(234.4f, 234f, 72.5f);
-    }*/
-
 }

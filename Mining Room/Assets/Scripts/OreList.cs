@@ -7,16 +7,6 @@ public class OreList : MonoBehaviour {
 
     public List<Ore> ores = new List<Ore>();
 
-    //public List<Ore> oresNeeded = new List<Ore>();
-
-    /*public Text mithrilNeededText;
-    public Text adamantiteNeededText;
-    public Text goldNeededText;
-    public Text pyroniumNeededText;
-    public Text silverNeededText;
-    public Text grapiteNeededText;*/
-
-
     public Text runeCounterText;
 
     public Rigidbody mithrilOre;
@@ -24,169 +14,108 @@ public class OreList : MonoBehaviour {
     public Rigidbody goldOre;
     public Rigidbody pyroniumOre;
     public Rigidbody silverOre;
-    public Rigidbody grapiteOre;
+    public Ore oreThrown;
+    private bool shaking = false;
 
-    
+    private float shakeAmt = 50f;
 
-    /*int mithrilNeeded;
-    int adamantiteNeeded;
-    int goldNeeded;
-    int pyroniumNeeded;
-    int silverNeeded;
-    int grapiteNeeded;*/
+    public AudioClip throwWhoosh;
+    public OreSwitcher oreSwitcher;
+    public OreList oreList;
+
     bool doorOpen;
 
     public int runeCounter;
     
     private Rigidbody instance;
+    public AudioSource source;
 
     public GameController gameController;
 
 	void Start () {
-        //OresNeeded();
-        //SetNeededText();
         doorOpen = false;
     }
 
     void Update () {
-        if(runeCounter == 3)
+        if (shaking)
+        {
+            Vector3 newPos = transform.position + Random.insideUnitSphere * (Time.deltaTime * shakeAmt);
+            newPos.y = transform.position.y;
+            newPos.z = transform.position.z;
+
+            transform.position = newPos;
+        }
+
+        if (runeCounter == 3)
         {
             doorOpen = true;
             print(doorOpen);
         }
     }
 
-    /*private void OnTriggerEnter(Collider collider)
+    private void OnTriggerEnter(Collider collider)
     {
-        GameObject theController = GameObject.Find("GameController");
-        GameController gameController = theController.GetComponent<GameController>();
-        if (collider.gameObject.tag == "Dropoff Zone")
+        if (collider.gameObject.tag == "Rock Attack")
         {
-
-            if (gameController.mithrilCounter >= mithrilNeeded && 
-                gameController.adamantiteCounter >= adamantiteNeeded &&
-                gameController.goldCounter >= goldNeeded &&
-                gameController.pyroniumCounter >= pyroniumNeeded &&
-                gameController.silverCounter >= silverNeeded &&
-                gameController.grapiteCounter >= grapiteNeeded)
-            {
-                OffLoading();
-                gameController.mithrilCounter = 0;
-                gameController.adamantiteCounter = 0;
-                gameController.goldCounter = 0;
-                gameController.pyroniumCounter = 0;
-                gameController.silverCounter = 0;
-                gameController.grapiteCounter = 0;
-                print("Success");
-
-            }
-            
+            ShakeMe();
+            ThrowFunction();
         }
-    }*/
-
-
-
-    /*void SetNeededText()
-    {
-        mithrilNeededText.text = mithrilNeeded.ToString();
-        adamantiteNeededText.text = adamantiteNeeded.ToString();
-        goldNeededText.text = goldNeeded.ToString();
-        pyroniumNeededText.text = pyroniumNeeded.ToString();
-        silverNeededText.text = silverNeeded.ToString();
-        grapiteNeededText.text = grapiteNeeded.ToString();
-    }*/
-
-    /*public void OresNeeded()
-    {
-        mithrilNeeded = Random.Range(3, 5);
-        adamantiteNeeded = Random.Range(3, 5);
-        goldNeeded = Random.Range(3, 4);
-        pyroniumNeeded = Random.Range(3, 5);
-        silverNeeded = Random.Range(3, 5);
-        grapiteNeeded = 20 - (mithrilNeeded + adamantiteNeeded + goldNeeded + pyroniumNeeded + silverNeeded);
-        for(int i = 0; i < mithrilNeeded; i++)
-        {
-            oresNeeded.Add(mithrilOre.GetComponent<Ore>());
-        }
-        for (int i = 0; i < adamantiteNeeded; i++)
-        {
-            oresNeeded.Add(adamantiteOre.GetComponent<Ore>());
-        }
-        for (int i = 0; i < goldNeeded; i++)
-        {
-            oresNeeded.Add(goldOre.GetComponent<Ore>());
-        }
-        for (int i = 0; i < pyroniumNeeded; i++)
-        {
-            oresNeeded.Add(pyroniumOre.GetComponent<Ore>());
-        }
-        for (int i = 0; i < silverNeeded; i++)
-        {
-            oresNeeded.Add(silverOre.GetComponent<Ore>());
-        }
-        for (int i = 0; i < grapiteNeeded; i++)
-        {
-            oresNeeded.Add(grapiteOre.GetComponent<Ore>());
-        }
-        print("Mithril Needed" + mithrilNeeded);
-        print("Adamantite Needed" + adamantiteNeeded);
-        print("Gold Needed" + goldNeeded);
-        print("Pyronium Needed" + pyroniumNeeded);
-        print("Silver Needed" + silverNeeded);
-        print("Grapite Needed" + grapiteNeeded);
-    }*/
-
+    }
 
     public void ThrowFunction()
     {
         if (ores.Count > 0)
         {
+            int amountOreThrown = Random.Range(2, 4);
             GameObject theController = GameObject.Find("GameController");
             GameController gameController = theController.GetComponent<GameController>();
-            var oreThrown = ores[Random.Range(0, ores.Count)];
-
-            switch (oreThrown.oreType)
+            for (int i = 0; i < amountOreThrown; i++)
             {
-                case Ore.OreType.Mithril:
-                    instance = Instantiate(mithrilOre, transform.position + new Vector3(0f, 2f, 0f), Quaternion.identity);
-                    instance.AddForce(new Vector3(Random.Range(-3000f, 3000f), 3000f, 0f));
-                    gameController.mithrilCounter--;
-                    break;
-                case Ore.OreType.Adamantite:
-                    instance = Instantiate(adamantiteOre, transform.position + new Vector3(0f, 2f, 0f), Quaternion.identity);
-                    instance.AddForce(new Vector3(Random.Range(-3000f, 3000f), 3000f, 0f));
-                    gameController.adamantiteCounter--;
-                    break;
-                case Ore.OreType.Gold:
-                    instance = Instantiate(goldOre, transform.position + new Vector3(0f, 2f, 0f), Quaternion.identity);
-                    instance.AddForce(new Vector3(Random.Range(-3000f, 3000f), 3000f, 0f));
-                    gameController.goldCounter--;
-                    break;
-                case Ore.OreType.Pyronium:
-                    instance = Instantiate(pyroniumOre, transform.position + new Vector3(0f, 2f, 0f), Quaternion.identity);
-                    instance.AddForce(new Vector3(Random.Range(-3000f, 3000f), 3000f, 0f));
-                    gameController.pyroniumCounter--;
-                    break;
-                case Ore.OreType.Silver:
-                    instance = Instantiate(silverOre, transform.position + new Vector3(0f, 2f, 0f), Quaternion.identity);
-                    instance.AddForce(new Vector3(Random.Range(-3000f, 3000f), 3000f, 0f));
-                    gameController.silverCounter--;
-                    break;
-                case Ore.OreType.Grapite:
-                    instance = Instantiate(grapiteOre, transform.position + new Vector3(0f, 2f, 0f), Quaternion.identity);
-                    instance.AddForce(new Vector3(Random.Range(-3000f, 3000f), 3000f, 0f));
-                    gameController.grapiteCounter--;
-                    break;
+                oreThrown = ores[Random.Range(0, ores.Count)];
+                Ore.OreType type = oreThrown.GetComponent<Ore>().oreType;
+                switch (type)
+                {
+                    case Ore.OreType.Mithril:
+                        instance = Instantiate(mithrilOre, transform.position + new Vector3(0f, 5f, 0f), Quaternion.identity);
+                        InstantiateThrownOre();
+                        gameController.mithrilCounter--;
+                        break;
+                    case Ore.OreType.Adamantite:
+                        instance = Instantiate(adamantiteOre, transform.position + new Vector3(0f, 5f, 0f), Quaternion.identity);
+                        InstantiateThrownOre();
+                        gameController.adamantiteCounter--;
+                        break;
+                    case Ore.OreType.Gold:
+                        instance = Instantiate(goldOre, transform.position + new Vector3(0f, 5f, 0f), Quaternion.identity);
+                        InstantiateThrownOre();
+                        gameController.goldCounter--;
+                        break;
+                    case Ore.OreType.Pyronium:
+                        instance = Instantiate(pyroniumOre, transform.position + new Vector3(0f, 5f, 0f), Quaternion.identity);
+                        InstantiateThrownOre();
+                        gameController.pyroniumCounter--;
+                        break;
+                    case Ore.OreType.Silver:
+                        instance = Instantiate(silverOre, transform.position + new Vector3(0f, 5f, 0f), Quaternion.identity);
+                        InstantiateThrownOre();
+                        gameController.silverCounter--;
+                        break;
+                }
             }
-
-            ores.Remove(oreThrown);
         }
         gameController.SetCurrentOreText();
     }
 
+    public void InstantiateThrownOre()
+    {
+        instance.AddForce(new Vector3(Random.Range(-1500f, 1500f), 1500f, 0f));
+        oreSwitcher.oresNeeded.Add(oreThrown.GetComponent<Ore>());
+        ores.Remove(oreThrown.GetComponent<Ore>());
+    }
+
     public void ThrowRepeating()
     {
-        InvokeRepeating("ThrowFunction", 1f, 5f);
+        InvokeRepeating("ThrowFunction", 5f, 5f);
     }
 
     public void CancelThrowing()
@@ -194,11 +123,28 @@ public class OreList : MonoBehaviour {
         CancelInvoke("ThrowFunction");
     }
 
+    public void ShakeMe()
+    {
+        StopCoroutine("ShakeNow");
+        StartCoroutine("ShakeNow");
+    }
+
+    IEnumerator ShakeNow()
+    {
+
+        if (shaking == false)
+        {
+            shaking = true;
+        }
+
+        yield return new WaitForSeconds(0.2f);
+
+        shaking = false;
+    }
+
     public void OreClear()
     {
         ores.Clear();
-        //OresNeeded();
-        //SetNeededText();
         runeCounter++;
         runeCounterText.text = "Runes: " + runeCounter.ToString();
         gameController.SetCurrentOreText();
