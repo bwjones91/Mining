@@ -55,7 +55,7 @@ public class OreList : MonoBehaviour {
 
     private void OnTriggerEnter(Collider collider)
     {
-        if (collider.gameObject.tag == "Rock Attack")
+        if (collider.gameObject.tag == "Enemy")
         {
             ShakeMe();
             ThrowFunction();
