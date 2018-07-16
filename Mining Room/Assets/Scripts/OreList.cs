@@ -15,11 +15,13 @@ public class OreList : MonoBehaviour {
     public Rigidbody pyroniumOre;
     public Rigidbody silverOre;
     public Ore oreThrown;
-    private bool shaking = false;
+    public bool hasBeenHit = false;
+    public TrollAttack trollAttack;
 
-    private float shakeAmt = 50f;
+    private CameraShake cameraShaking;
 
     public AudioClip throwWhoosh;
+    public AudioClip hammerCrash;
     public OreSwitcher oreSwitcher;
     public OreList oreList;
 
@@ -34,30 +36,32 @@ public class OreList : MonoBehaviour {
 
 	void Start () {
         doorOpen = false;
+        cameraShaking = GameObject.FindGameObjectWithTag("Camera Parent").GetComponent<CameraShake>();
     }
 
     void Update () {
-        if (shaking)
-        {
-            Vector3 newPos = transform.position + Random.insideUnitSphere * (Time.deltaTime * shakeAmt);
-            newPos.y = transform.position.y;
-            newPos.z = transform.position.z;
-
-            transform.position = newPos;
-        }
 
         if (runeCounter == 3)
         {
             doorOpen = true;
             print(doorOpen);
         }
+
+        if (trollAttack.isAttacking == false)
+        {
+            hasBeenHit = false;
+        }
+
     }
 
     private void OnTriggerEnter(Collider collider)
     {
+        print(collider.gameObject.tag);
         if (collider.gameObject.tag == "Enemy")
         {
-            ShakeMe();
+            hasBeenHit = true;
+            cameraShaking.ShakeCamera(1.5f, .5f);
+            source.PlayOneShot(hammerCrash, 1f);
             ThrowFunction();
         }
     }
@@ -76,27 +80,27 @@ public class OreList : MonoBehaviour {
                 switch (type)
                 {
                     case Ore.OreType.Mithril:
-                        instance = Instantiate(mithrilOre, transform.position + new Vector3(0f, 5f, 0f), Quaternion.identity);
+                        instance = Instantiate(mithrilOre, transform.position + new Vector3(0f, 7f, 0f), Quaternion.identity);
                         InstantiateThrownOre();
                         gameController.mithrilCounter--;
                         break;
                     case Ore.OreType.Adamantite:
-                        instance = Instantiate(adamantiteOre, transform.position + new Vector3(0f, 5f, 0f), Quaternion.identity);
+                        instance = Instantiate(adamantiteOre, transform.position + new Vector3(0f, 7f, 0f), Quaternion.identity);
                         InstantiateThrownOre();
                         gameController.adamantiteCounter--;
                         break;
                     case Ore.OreType.Gold:
-                        instance = Instantiate(goldOre, transform.position + new Vector3(0f, 5f, 0f), Quaternion.identity);
+                        instance = Instantiate(goldOre, transform.position + new Vector3(0f, 7f, 0f), Quaternion.identity);
                         InstantiateThrownOre();
                         gameController.goldCounter--;
                         break;
                     case Ore.OreType.Pyronium:
-                        instance = Instantiate(pyroniumOre, transform.position + new Vector3(0f, 5f, 0f), Quaternion.identity);
+                        instance = Instantiate(pyroniumOre, transform.position + new Vector3(0f, 7f, 0f), Quaternion.identity);
                         InstantiateThrownOre();
                         gameController.pyroniumCounter--;
                         break;
                     case Ore.OreType.Silver:
-                        instance = Instantiate(silverOre, transform.position + new Vector3(0f, 5f, 0f), Quaternion.identity);
+                        instance = Instantiate(silverOre, transform.position + new Vector3(0f, 7f, 0f), Quaternion.identity);
                         InstantiateThrownOre();
                         gameController.silverCounter--;
                         break;
@@ -121,25 +125,6 @@ public class OreList : MonoBehaviour {
     public void CancelThrowing()
     {
         CancelInvoke("ThrowFunction");
-    }
-
-    public void ShakeMe()
-    {
-        StopCoroutine("ShakeNow");
-        StartCoroutine("ShakeNow");
-    }
-
-    IEnumerator ShakeNow()
-    {
-
-        if (shaking == false)
-        {
-            shaking = true;
-        }
-
-        yield return new WaitForSeconds(0.2f);
-
-        shaking = false;
     }
 
     public void OreClear()

@@ -12,7 +12,7 @@ public class CameraChildDetachment : MonoBehaviour {
     public AudioClip caveInSound;
 
     public GameObject gameController;
-    public GameObject goblin;
+    public GameObject troll;
     
     public Transform startMarker;
     public Transform endMarker;
@@ -53,7 +53,7 @@ public class CameraChildDetachment : MonoBehaviour {
             isLerp = true;
             hasTriggered = true;
             gameController.GetComponent<OreSwitcher>().enabled = true;
-            goblin.SetActive(true);
+            troll.SetActive(true);
         }
     }
 
