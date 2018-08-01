@@ -5,12 +5,7 @@ using UnityEngine;
 public class minecartMovement : MonoBehaviour {
     
     public float  minecartSpeed;
-    public float speedToThrowGoblin;
-    public float chanceToSpawn;
-    public float goblinSpawnMultiplier;
-    public GameObject goblin;
     public OreList oreList;
-    public GoblinThrow goblinThrowing;
     public GameController gameController;
     public float thrustVariable;
     public float localSpeed;
@@ -35,9 +30,6 @@ public class minecartMovement : MonoBehaviour {
     private float thrust;
     private bool right;
     private float thrustDirection;
-    private float goblinSpawnChance;
-    private int goblinsOnScreen;
-    private GameObject newGoblin;
     private float leverMovement;
     private ArduinoCommunicator AC;
     private float force;
@@ -129,23 +121,6 @@ public class minecartMovement : MonoBehaviour {
 
     private void OnCollisionEnter(Collision collision)
     {
-        if(((collision.gameObject.tag == "Left Wall") || (collision.gameObject.tag == "Right Wall")) && minecartSpeed > speedToThrowGoblin && goblinsOnScreen > 0)
-        {
-            oreList.CancelThrowing();
-            goblinsOnScreen--;
-            cackleSource.Stop();
-            source.PlayOneShot(goblinScream, 20f);
-
-            if(collision.gameObject.tag == "Left Wall")
-            {
-                goblinThrowing.GoblinLeftThrow();
-            }
-            else
-            {
-                goblinThrowing.GoblinRightThrow();
-            }
-        }
-
         if(collision.gameObject.tag == "Left Wall" || collision.gameObject.tag == "Right Wall")
         {
             minecartSpeed = 0;
@@ -187,24 +162,6 @@ public class minecartMovement : MonoBehaviour {
                     oreSwitcher.oresNeeded.Remove(silverOre.GetComponent<Ore>());
                     break;
             }
-
-            goblinSpawnChance = (Random.Range(0f, 100f)) * goblinSpawnMultiplier;
-            if(goblinSpawnChance <= chanceToSpawn && goblinsOnScreen < 1)
-            {
-                source.PlayOneShot(goblinCackle, 30f);
-                newGoblin = Instantiate(goblin, transform.position, goblin.transform.rotation);
-                newGoblin.transform.parent = gameObject.transform;
-                goblinThrowing = GetComponentInChildren<GoblinThrow>();
-                goblinsOnScreen++;
-                oreList.ThrowRepeating();
-                goblinSpawnMultiplier = 5;
-            }
-            
-            if(goblinSpawnChance > chanceToSpawn)
-            {
-                goblinSpawnMultiplier--;
-            }
-
         }
         gameController.SetCurrentOreText();
     }
