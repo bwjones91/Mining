@@ -163,7 +163,6 @@ public class minecartMovement : MonoBehaviour {
                     break;
             }
         }
-        gameController.SetCurrentOreText();
     }
 
 

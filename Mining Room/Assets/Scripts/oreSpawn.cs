@@ -13,6 +13,7 @@ public class oreSpawn : MonoBehaviour {
     public Light thisLight;
     public AudioClip oreHitSound;
     public GameObject oreLight;
+    public float hitThreshold = 12;
 
     private AudioSource source;
     private float hitsTaken;
@@ -22,7 +23,10 @@ public class oreSpawn : MonoBehaviour {
     private bool changeLight = false;
     private float lightMax;
     private float lightChange;
-    
+
+    private float hitAmount;
+    private PiezoArduinoCommunicator AC;
+
     Vector3 originalPos;
     
     private float shakeAmt = 100f;
@@ -35,18 +39,23 @@ public class oreSpawn : MonoBehaviour {
         originalPos = transform.position;
         lightMax = thisLight.intensity;
         lightChange = lightMax / 12;
+        AC = GameObject.Find("Piezo Arduino Communication").GetComponent<PiezoArduinoCommunicator>();
     }
 
 
     void Update () {
-        if (Input.GetKeyDown(theKey))
+        print(AC.GetMessageIN());
+        hitAmount = AC.GetMessageIN();
+        print(hitAmount);
+
+        if (hitAmount > hitThreshold)
         {
             hitsTaken++;
             ShakeMe();
             source.PlayOneShot(oreHitSound, 1f);
         }
 
-        if (Input.GetKeyDown(theKey) && hitsTaken >= hitsNeeded)
+        if (hitAmount > hitThreshold && hitsTaken >= hitsNeeded)
         {
             Invoke("CreateOre", 0f);
             veinLightUp = false;

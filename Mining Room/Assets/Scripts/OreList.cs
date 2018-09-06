@@ -107,7 +107,6 @@ public class OreList : MonoBehaviour {
                 }
             }
         }
-        gameController.SetCurrentOreText();
     }
 
     public void InstantiateThrownOre()
@@ -132,12 +131,10 @@ public class OreList : MonoBehaviour {
         ores.Clear();
         runeCounter++;
         runeCounterText.text = "Runes: " + runeCounter.ToString();
-        gameController.SetCurrentOreText();
     }
 
     public void OffLoading()
     {
         Invoke("OreClear", 0.5f);
-        gameController.SetCurrentOreText();
     }
 }

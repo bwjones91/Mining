@@ -46,14 +46,6 @@ public class GameController : MonoBehaviour {
         
     }
 
-    public void SetCurrentOreText()
-    {
-        mithrilText.text = mithrilCounter.ToString();
-        adamantiteText.text = adamantiteCounter.ToString();
-        goldText.text = goldCounter.ToString();
-        pyroniumText.text = pyroniumCounter.ToString();
-        silverText.text = silverCounter.ToString();
-        grapiteText.text = grapiteCounter.ToString();
-    }
+
 
 }

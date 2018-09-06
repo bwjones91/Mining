@@ -20,9 +20,8 @@ public class ArduinoCommunicator : MonoBehaviour
     // Initialization
     void Start()
     {
-        serialController = GameObject.Find("SerialController").GetComponent<SerialController>();
+        serialController = GameObject.Find("Serial Controller").GetComponent<SerialController>();
 
-        Debug.Log("Press A or Z to execute some actions");
     }
 
     // Executed each frame
