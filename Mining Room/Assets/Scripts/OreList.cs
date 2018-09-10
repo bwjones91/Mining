@@ -56,7 +56,6 @@ public class OreList : MonoBehaviour {
 
     private void OnTriggerEnter(Collider collider)
     {
-        print(collider.gameObject.tag);
         if (collider.gameObject.tag == "Enemy")
         {
             hasBeenHit = true;

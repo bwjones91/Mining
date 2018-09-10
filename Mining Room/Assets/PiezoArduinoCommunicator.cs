@@ -22,7 +22,7 @@ public class PiezoArduinoCommunicator : MonoBehaviour
     {
         
         //serialController = GameObject.Find("Piezo Serial Controller").GetComponent<PiezoSerialController>();
-        print("this working");
+
 
     }
 
